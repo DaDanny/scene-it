@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D11072F0486CEB800E47096 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D11072F0486CEB800E47006 /* Assets.xcassets */; };
+		8D1107310486CEB800E47090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47000 /* AppDelegate.swift */; };
+		8D1107320486CEB800E47091 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107320486CEB800E47001 /* ContentView.swift */; };
+		8D1107330486CEB800E47092 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107330486CEB800E47002 /* StatusBarController.swift */; };
+		8D1107340486CEB800E47093 /* VirtualCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107340486CEB800E47003 /* VirtualCameraManager.swift */; };
+		8D1107350486CEB800E47094 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107350486CEB800E47004 /* Overlay.swift */; };
+		8D1107360486CEB800E47095 /* StatusBarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107360486CEB800E47005 /* StatusBarMenuView.swift */; };
+		8D1107380486CEB800E47098 /* VideoPreviewWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107380486CEB800E47011 /* VideoPreviewWindow.swift */; };
+		8D1107390486CEB800E47099 /* VirtualCameraIPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107390486CEB800E47012 /* VirtualCameraIPC.swift */; };
+		C99EBCCE2E3B22F200224C7B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99EBCCD2E3B22EE00224C7B /* main.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D11072F0486CEB800E47006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D1107310486CEB800E47000 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8D1107320486CEB800E47001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8D1107320486CEB800E47007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47008 /* SceneIt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SceneIt.entitlements; sourceTree = "<group>"; };
+		8D1107320486CEB800E47009 /* SceneIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107330486CEB800E47002 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		8D1107340486CEB800E47003 /* VirtualCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraManager.swift; sourceTree = "<group>"; };
+		8D1107350486CEB800E47004 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		8D1107360486CEB800E47005 /* StatusBarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarMenuView.swift; sourceTree = "<group>"; };
+		8D1107380486CEB800E47011 /* VideoPreviewWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewWindow.swift; sourceTree = "<group>"; };
+		8D1107390486CEB800E47012 /* VirtualCameraIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraIPC.swift; sourceTree = "<group>"; };
+		C99EBCCD2E3B22EE00224C7B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072A0486CEB800E47084 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A0FEA54F0111CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47009 /* SceneIt.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBA /* SceneIt */ = {
+			isa = PBXGroup;
+			children = (
+				C99EBCCD2E3B22EE00224C7B /* main.swift */,
+				8D1107310486CEB800E47000 /* AppDelegate.swift */,
+				8D1107320486CEB800E47001 /* ContentView.swift */,
+				8D1107330486CEB800E47002 /* StatusBarController.swift */,
+				8D1107340486CEB800E47003 /* VirtualCameraManager.swift */,
+				29B97314FDCFA39411CA2CEA /* Models */,
+				29B97315FDCFA39411CA2CEB /* Views */,
+				29B97317FDCFA39411CA2CED /* IPC */,
+				29B97316FDCFA39411CA2CEC /* Resources */,
+			);
+			path = SceneIt;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107350486CEB800E47004 /* Overlay.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107360486CEB800E47005 /* StatusBarMenuView.swift */,
+				8D1107380486CEB800E47011 /* VideoPreviewWindow.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CED /* IPC */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107390486CEB800E47012 /* VirtualCameraIPC.swift */,
+			);
+			path = IPC;
+			sourceTree = "<group>";
+		};
+		29B97316FDCFA39411CA2CEC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D11072F0486CEB800E47006 /* Assets.xcassets */,
+				8D1107320486CEB800E47007 /* Info.plist */,
+				8D1107320486CEB800E47008 /* SceneIt.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CED = {
+			isa = PBXGroup;
+			children = (
+				1058C7A2FEA54F0111CA2CBA /* SceneIt */,
+				1058C7A0FEA54F0111CA2CBB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47080 /* SceneIt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "SceneIt" */;
+			buildPhases = (
+				8D1107290486CEB800E47083 /* Sources */,
+				8D11072A0486CEB800E47084 /* Frameworks */,
+				8D11072C0486CEB800E47085 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SceneIt;
+			productInstallPath = "$(HOME)/Applications";
+			productName = SceneIt;
+			productReference = 8D1107320486CEB800E47009 /* SceneIt.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1640;
+				ORGANIZATIONNAME = "Scene It";
+				TargetAttributes = {
+					8D1107260486CEB800E47080 = {
+						CreatedOnToolsVersion = 15.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SceneIt" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 29B97317FDCFA39411CA2CED;
+			productRefGroup = 1058C7A0FEA54F0111CA2CBB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47080 /* SceneIt */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D11072C0486CEB800E47085 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47096 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D1107290486CEB800E47083 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D1107310486CEB800E47090 /* AppDelegate.swift in Sources */,
+				C99EBCCE2E3B22F200224C7B /* main.swift in Sources */,
+				8D1107320486CEB800E47091 /* ContentView.swift in Sources */,
+				8D1107330486CEB800E47092 /* StatusBarController.swift in Sources */,
+				8D1107340486CEB800E47093 /* VirtualCameraManager.swift in Sources */,
+				8D1107350486CEB800E47094 /* Overlay.swift in Sources */,
+				8D1107360486CEB800E47095 /* StatusBarMenuView.swift in Sources */,
+				8D1107380486CEB800E47098 /* VideoPreviewWindow.swift in Sources */,
+				8D1107390486CEB800E47099 /* VirtualCameraIPC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SceneIt/Resources/SceneIt.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SceneIt/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Scene It";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sceneit.SceneIt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SceneIt/Resources/SceneIt.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SceneIt/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Scene It";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sceneit.SceneIt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 378NGS49HA;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 378NGS49HA;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "SceneIt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SceneIt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEF /* Project object */;
+}

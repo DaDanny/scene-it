@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+    <key>CFBundleExecutable</key>
+    <string>SceneItVirtualCamera</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.sceneit.virtualcamera.plugin</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>Scene It Virtual Camera</string>
+    <key>CFBundlePackageType</key>
+    <string>BNDL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>CFPlugInDynamicRegistration</key>
+    <string>NO</string>
+    <key>CFPlugInDynamicRegistrationFunction</key>
+    <string></string>
+    <key>CFPlugInFactories</key>
+    <dict>
+        <key>9F34E467-8B95-4F87-B84A-3F5E3C5B8A9C</key>
+        <string>SceneItVirtualCameraPlugInFactory</string>
+    </dict>
+    <key>CFPlugInTypes</key>
+    <dict>
+        <key>30010C1C-93BF-11D8-8B5B-000A95AF9C6A</key>
+        <array>
+            <string>9F34E467-8B95-4F87-B84A-3F5E3C5B8A9C</string>
+        </array>
+    </dict>
+    <key>CFPlugInUnloadFunction</key>
+    <string></string>
+    <key>CMIOHardwarePlugIn_InitializeWithObjectID</key>
+    <string>SceneItVirtualCamera_InitializeWithObjectID</string>
+    <key>CMIOHardwarePlugIn_Initialize</key>
+    <string>SceneItVirtualCamera_Initialize</string>
+    <key>CMIOHardwarePlugIn_Teardown</key>
+    <string>SceneItVirtualCamera_Teardown</string>
+</dict>
+</plist>

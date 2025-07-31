@@ -1,0 +1,18 @@
+prompt: >
+  Create a new Xcode project for a native macOS app written in Swift. This app should behave like a standard macOS application that users can launch from the Applications folder or the macOS dock.
+
+  The core features should include:
+
+  - When the app is running, show an icon in the macOS system status bar (top-right menu bar). Clicking the icon should present a simple menu UI that lets the user:
+    - Start or stop a virtual camera
+    - Choose from a list of available overlays to display on the video feed
+
+  - When running, the app starts a virtual camera that the user can select in video meeting apps like Zoom or Google Meet.
+
+  - The virtual camera should apply a modern-looking overlay on top of the user’s webcam feed.
+
+  - If the virtual camera is selected in another app but the overlay app is not currently running, display a fallback splash screen image or “camera not active” screen (similar to OBS Studio).
+
+  - Overlay configuration should be simple to implement and maintain. Use modern native macOS development patterns—preferably Swift and SwiftUI—for UI components, and AVFoundation or relevant macOS APIs for video capture and virtual camera output.
+
+  This is not an iOS app. It should use AppKit or SwiftUI for macOS, not UIKit. Set up the project so I can build and run it in Xcode on a Mac. Include appropriate entitlements and permissions needed for camera access and video output.
