@@ -33,11 +33,27 @@ struct StatusBarMenuView: View {
             // Controls
             VStack(spacing: 4) {
                 Button(action: {
-                    // Toggle virtual camera
+                    statusBarController.toggleVirtualCamera()
                 }) {
                     HStack {
                         Image(systemName: statusBarController.isVirtualCameraActive ? "stop.circle" : "play.circle")
                         Text(statusBarController.isVirtualCameraActive ? "Stop Virtual Camera" : "Start Virtual Camera")
+                        Spacer()
+                    }
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.clear)
+                .cornerRadius(4)
+                
+                // Preview Window Toggle
+                Button(action: {
+                    statusBarController.togglePreviewWindow()
+                }) {
+                    HStack {
+                        Image(systemName: "eye")
+                        Text("Show Preview")
                         Spacer()
                     }
                 }
@@ -93,6 +109,30 @@ struct StatusBarMenuView: View {
             
             Divider()
             
+            // Plugin Status
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Circle()
+                        .fill(statusBarController.virtualCameraManager.isPluginConnected ? Color.green : Color.red)
+                        .frame(width: 8, height: 8)
+                    Text(statusBarController.virtualCameraManager.isPluginConnected ? "Plugin: Connected" : "Plugin: Disconnected")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+                
+                if !statusBarController.virtualCameraManager.isPluginConnected {
+                    Button("Install Virtual Camera Plugin") {
+                        statusBarController.installPlugin()
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                }
+            }
+            .padding(.horizontal)
+            
+            Divider()
+            
             VStack(spacing: 4) {
                 // Overlay Selection
                 VStack(alignment: .leading, spacing: 2) {
@@ -108,7 +148,7 @@ struct StatusBarMenuView: View {
                         title: "No Overlay",
                         isSelected: statusBarController.selectedOverlay == nil,
                         action: {
-                            statusBarController.selectedOverlay = nil
+                            statusBarController.selectOverlay(nil)
                         }
                     )
                     
@@ -118,7 +158,7 @@ struct StatusBarMenuView: View {
                             title: overlay.name,
                             isSelected: statusBarController.selectedOverlay?.id == overlay.id,
                             action: {
-                                statusBarController.selectedOverlay = overlay
+                                statusBarController.selectOverlay(overlay)
                             }
                         )
                     }
@@ -127,6 +167,14 @@ struct StatusBarMenuView: View {
             }
             
             Divider()
+            
+            // Settings Button
+            Button("Settings...") {
+                openSettings()
+            }
+            .buttonStyle(PlainButtonStyle())
+            .padding(.horizontal)
+            .padding(.vertical, 2)
             
             // Quit Button
             Button("Quit Scene It") {
@@ -138,6 +186,28 @@ struct StatusBarMenuView: View {
         }
         .frame(width: 220)
         .background(Color(NSColor.windowBackgroundColor))
+    }
+    
+    // MARK: - Actions
+    
+    private func openSettings() {
+        let settingsView = SettingsView(virtualCameraManager: statusBarController.virtualCameraManager)
+        let hostingController = NSHostingController(rootView: settingsView)
+        
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 450, height: 400),
+            styleMask: [.titled, .closable],
+            backing: .buffered,
+            defer: false
+        )
+        
+        window.title = "Scene It Settings"
+        window.contentViewController = hostingController
+        window.center()
+        window.makeKeyAndOrderFront(nil)
+        
+        // Keep window in front
+        window.level = .floating
     }
 }
 

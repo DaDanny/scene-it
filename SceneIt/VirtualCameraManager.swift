@@ -124,6 +124,17 @@ class VirtualCameraManager: NSObject, ObservableObject {
             return
         }
         
+        // Ensure cameras are discovered
+        if availableCameras.isEmpty {
+            print("📹 No cameras available, discovering cameras...")
+            discoverAvailableCameras()
+            if availableCameras.isEmpty {
+                errorMessage = "No cameras detected. Please connect a camera and try again."
+                print("❌ No cameras found after discovery")
+                return
+            }
+        }
+        
         // Register virtual camera device
         print("📹 Registering virtual camera device...")
         if !SimpleVirtualCamera.shared.registerVirtualCamera() {
@@ -710,7 +721,7 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     // MARK: - Camera Management
     
-    private func discoverAvailableCameras() {
+    func discoverAvailableCameras() {
         let discoverySession = AVCaptureDevice.DiscoverySession(
             deviceTypes: [
                 .builtInWideAngleCamera,
@@ -723,9 +734,9 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         
         availableCameras = discoverySession.devices
         
-        // Set default camera if none selected
+        // Set camera based on settings or default to first available
         if selectedCamera == nil && !availableCameras.isEmpty {
-            selectedCamera = availableCameras.first
+            selectedCamera = AppSettings.shared.getSelectedCamera(from: availableCameras)
         }
         
         print("📹 Discovered \(availableCameras.count) cameras:")
@@ -734,18 +745,23 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
     
+    /// Select a specific camera device
     func selectCamera(_ camera: AVCaptureDevice) {
-        guard availableCameras.contains(camera) else { return }
+        guard availableCameras.contains(camera) else {
+            print("⚠️ Camera not in available cameras list")
+            return
+        }
         
-        print("📹 Switching to camera: \(camera.localizedName)")
         selectedCamera = camera
+        AppSettings.shared.selectCamera(camera)
+        print("📹 Selected camera: \(camera.localizedName)")
         
-        // Restart capture session with new camera if active
+        // If virtual camera is currently active, restart it with the new camera
         if isActive {
-            let currentOverlay = self.currentOverlay
+            print("📹 Restarting virtual camera with new camera selection...")
             stopVirtualCamera()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.startVirtualCamera(with: currentOverlay)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.startVirtualCamera(with: self?.currentOverlay)
             }
         }
     }

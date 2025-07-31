@@ -9,6 +9,7 @@ class StatusBarController: ObservableObject {
     
     private var overlayManager = OverlayManager()
     private var previewWindowController: VideoPreviewWindowController?
+    private var menuPopover: NSPopover?
     
     init(virtualCameraManager: VirtualCameraManager) {
         print("🔄 StatusBarController init starting...")
@@ -17,8 +18,8 @@ class StatusBarController: ObservableObject {
         print("🔄 Setting up status bar item...")
         setupStatusBarItem()
         
-        print("🔄 Creating initial menu...")
-        updateMenu()
+        print("🔄 Setting up SwiftUI popover...")
+        setupMenuPopover()
         
         // Listen for virtual camera state changes
         NotificationCenter.default.addObserver(
@@ -56,9 +57,9 @@ class StatusBarController: ObservableObject {
                     print("⚠️ Using fallback emoji icon - Look for 📹 in menu bar!")
                 }
                 
-                // Modern approach: just set the menu, no need for action
-                // statusBarButton.action = #selector(statusBarButtonClicked)
-                // statusBarButton.target = self
+                // Set up click action for SwiftUI popover
+                statusBarButton.action = #selector(statusBarButtonClicked)
+                statusBarButton.target = self
                 print("✅ Status bar button configured")
             } else {
                 print("❌ Could not get statusBarButton")
@@ -68,101 +69,31 @@ class StatusBarController: ObservableObject {
         }
     }
     
-    private func createMenu() -> NSMenu {
-        let menu = NSMenu()
+    private func setupMenuPopover() {
+        menuPopover = NSPopover()
+        menuPopover?.contentSize = NSSize(width: 260, height: 400)
+        menuPopover?.behavior = .transient
+        menuPopover?.animates = true
         
-        // Virtual Camera Status
-        let statusItem = NSMenuItem(
-            title: isVirtualCameraActive ? "Virtual Camera: Active" : "Virtual Camera: Inactive",
-            action: nil,
-            keyEquivalent: ""
-        )
-        statusItem.isEnabled = false
-        menu.addItem(statusItem)
+        let menuView = StatusBarMenuView(statusBarController: self, overlayManager: overlayManager)
+        menuPopover?.contentViewController = NSHostingController(rootView: menuView)
         
-        menu.addItem(NSMenuItem.separator())
-        
-        // Start/Stop Virtual Camera
-        let toggleItem = NSMenuItem(
-            title: isVirtualCameraActive ? "Stop Virtual Camera" : "Start Virtual Camera",
-            action: #selector(toggleVirtualCamera),
-            keyEquivalent: ""
-        )
-        toggleItem.target = self
-        menu.addItem(toggleItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        // Preview Window
-        let previewItem = NSMenuItem(
-            title: previewWindowController?.window?.isVisible == true ? "Hide Preview" : "Show Preview",
-            action: #selector(togglePreviewWindow),
-            keyEquivalent: "p"
-        )
-        previewItem.target = self
-        menu.addItem(previewItem)
-        
-        // Plugin Status
-        let pluginStatusItem = NSMenuItem(
-            title: virtualCameraManager.isPluginConnected ? "Plugin: Connected" : "Plugin: Disconnected",
-            action: nil,
-            keyEquivalent: ""
-        )
-        pluginStatusItem.isEnabled = false
-        menu.addItem(pluginStatusItem)
-        
-        // Install Plugin (if not connected)
-        if !virtualCameraManager.isPluginConnected {
-            let installItem = NSMenuItem(
-                title: "Install Virtual Camera Plugin",
-                action: #selector(installPlugin),
-                keyEquivalent: ""
-            )
-            installItem.target = self
-            menu.addItem(installItem)
-        }
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        // Overlay Selection
-        let overlaySubmenu = NSMenu()
-        
-        // No overlay option
-        let noOverlayItem = NSMenuItem(title: "No Overlay", action: #selector(selectNoOverlay), keyEquivalent: "")
-        noOverlayItem.target = self
-        noOverlayItem.state = selectedOverlay == nil ? .on : .off
-        overlaySubmenu.addItem(noOverlayItem)
-        
-        overlaySubmenu.addItem(NSMenuItem.separator())
-        
-        // Available overlays
-        for overlay in overlayManager.availableOverlays {
-            let overlayItem = NSMenuItem(title: overlay.name, action: #selector(selectOverlay(_:)), keyEquivalent: "")
-            overlayItem.target = self
-            overlayItem.representedObject = overlay
-            overlayItem.state = selectedOverlay?.id == overlay.id ? .on : .off
-            overlaySubmenu.addItem(overlayItem)
-        }
-        
-        let overlayMenuItem = NSMenuItem(title: "Select Overlay", action: nil, keyEquivalent: "")
-        overlayMenuItem.submenu = overlaySubmenu
-        menu.addItem(overlayMenuItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        // Quit
-        let quitItem = NSMenuItem(title: "Quit Scene It", action: #selector(quit), keyEquivalent: "q")
-        quitItem.target = self
-        menu.addItem(quitItem)
-        
-        return menu
+        print("✅ SwiftUI popover configured")
     }
     
-    private func updateMenu() {
-        statusBarItem?.menu = createMenu()
+    @objc private func statusBarButtonClicked() {
+        guard let button = statusBarItem?.button else { return }
+        guard let popover = menuPopover else { return }
+        
+        if popover.isShown {
+            popover.performClose(nil)
+        } else {
+            popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+        }
     }
     
-    @objc private func toggleVirtualCamera() {
+    // Public methods for SwiftUI view to call
+    func toggleVirtualCamera() {
         if isVirtualCameraActive {
             virtualCameraManager.stopVirtualCamera()
         } else {
@@ -170,21 +101,11 @@ class StatusBarController: ObservableObject {
         }
     }
     
-    @objc private func selectNoOverlay() {
-        selectedOverlay = nil
-        if isVirtualCameraActive {
-            virtualCameraManager.updateOverlay(selectedOverlay)
-        }
-        updateMenu() // Refresh menu to show new selection
-    }
-    
-    @objc private func selectOverlay(_ sender: NSMenuItem) {
-        guard let overlay = sender.representedObject as? Overlay else { return }
+    func selectOverlay(_ overlay: Overlay?) {
         selectedOverlay = overlay
         if isVirtualCameraActive {
             virtualCameraManager.updateOverlay(selectedOverlay)
         }
-        updateMenu() // Refresh menu to show new selection
     }
     
     @objc func togglePreviewWindow() {
@@ -199,10 +120,10 @@ class StatusBarController: ObservableObject {
             previewWindowController = VideoPreviewWindowController(virtualCameraManager: virtualCameraManager)
             previewWindowController?.showWindow(nil)
         }
-        updateMenu() // Refresh menu to update preview toggle text
+        // SwiftUI will automatically update the UI through @Published properties
     }
     
-    @objc private func installPlugin() {
+    func installPlugin() {
         let alert = NSAlert()
         alert.messageText = "Install Virtual Camera Plugin"
         alert.informativeText = "This will install the Scene It virtual camera plugin to your system. You may need to restart video applications after installation."
@@ -238,7 +159,7 @@ class StatusBarController: ObservableObject {
                     resultAlert.addButton(withTitle: "OK")
                     resultAlert.runModal()
                     
-                    self.updateMenu()
+                    // SwiftUI will automatically update the UI through @Published properties
                 }
             }
             
@@ -254,7 +175,7 @@ class StatusBarController: ObservableObject {
     @objc private func virtualCameraStateChanged() {
         DispatchQueue.main.async {
             self.isVirtualCameraActive = self.virtualCameraManager.isActive
-            self.updateMenu() // Refresh menu when state changes
+            // SwiftUI will automatically update the UI through @Published properties
         }
     }
 }

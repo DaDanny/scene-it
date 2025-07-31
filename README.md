@@ -6,8 +6,11 @@ A native macOS application that provides virtual camera functionality with custo
 
 - **Status Bar Integration**: Runs as a menu bar app with a clean, unobtrusive interface
 - **Virtual Camera**: Creates a virtual camera device that appears in video conferencing applications
+- **Multi-Camera Support**: Select from built-in, external, or Continuity cameras
+- **Professional Settings**: Configure name, job title, and camera preferences
 - **Overlay System**: Apply modern-looking overlays to your video feed
 - **Easy Controls**: Start/stop virtual camera and select overlays from the status bar menu
+- **Hot Camera Switching**: Change cameras instantly without interrupting your virtual camera
 - **Fallback Screen**: Shows a "camera not active" screen when virtual camera is selected but app is not running
 - **Modern Architecture**: Built with Swift, SwiftUI, and AVFoundation using native macOS patterns
 
@@ -21,9 +24,12 @@ SceneIt/
 ├── StatusBarController.swift # Status bar menu management
 ├── VirtualCameraManager.swift # Virtual camera and video processing
 ├── Models/
-│   └── Overlay.swift        # Overlay data model and manager
+│   ├── Overlay.swift        # Overlay data model and manager
+│   └── AppSettings.swift    # User settings and preferences
 ├── Views/
-│   └── StatusBarMenuView.swift # SwiftUI menu interface
+│   ├── StatusBarMenuView.swift # SwiftUI menu interface
+│   ├── VideoPreviewWindow.swift # Live video preview window
+│   └── SettingsView.swift   # Settings configuration interface
 └── Resources/
     ├── Assets.xcassets/     # App icons and assets
     ├── Info.plist          # App configuration
@@ -45,10 +51,21 @@ SceneIt/
 ## Usage
 
 1. **Launch the App**: The app will appear as a video camera icon in your menu bar
-2. **Start Virtual Camera**: Click the menu bar icon and select "Start Virtual Camera"
-3. **Select Video Source**: In your video conferencing app, select "Scene It" as your camera
-4. **Choose Overlays**: Use the menu bar to select from available overlays
-5. **Stop When Done**: Click "Stop Virtual Camera" when you're finished
+2. **Configure Settings** (recommended first-time setup):
+   - Click the Scene It icon → "Settings..."
+   - Enter your name and job title for profile information
+   - Select your preferred camera from the dropdown
+   - Click "Done" to save settings
+3. **Start Virtual Camera**: Click the menu bar icon and select "Start Virtual Camera"
+4. **Select Video Source**: In your video conferencing app, select "Scene It Virtual Camera"
+5. **Choose Overlays**: Use the menu bar to select from available overlays
+6. **Stop When Done**: Click "Stop Virtual Camera" when you're finished
+
+### Settings Features
+- **Profile Information**: Store name and job title for overlay personalization
+- **Camera Management**: Select from all connected cameras (built-in, external, Continuity)
+- **Hot-Swapping**: Change cameras without interrupting your virtual camera stream
+- **Persistent Storage**: Settings automatically saved and restored on app launch
 
 ## Architecture Overview
 
