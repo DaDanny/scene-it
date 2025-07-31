@@ -28,11 +28,14 @@
     <array>
         <string>com.apple.systemevents</string>
     </array>
+    <!-- CMIOExtension entitlements removed for initial development -->
+    <!-- Add these back when you have proper provisioning profile:
     <key>com.apple.security.cmio-extension</key>
     <true/>
     <key>com.apple.security.cmio-dal-assistant</key>
     <true/>
     <key>com.apple.developer.cmio.extension</key>
     <true/>
+    -->
 </dict>
 </plist>

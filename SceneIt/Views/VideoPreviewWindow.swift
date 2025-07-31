@@ -1,9 +1,10 @@
 import SwiftUI
 import AVFoundation
+import Combine
 import CoreVideo
 
 struct VideoPreviewWindow: View {
-    @ObservableObject var virtualCameraManager: VirtualCameraManager
+    @ObservedObject var virtualCameraManager: VirtualCameraManager
     @State private var previewLayer: AVCaptureVideoPreviewLayer?
     @State private var isWindowVisible = false
     
@@ -107,7 +108,7 @@ struct VideoPreviewWindow: View {
 }
 
 struct VideoPreviewView: NSViewRepresentable {
-    @ObservableObject var virtualCameraManager: VirtualCameraManager
+    @ObservedObject var virtualCameraManager: VirtualCameraManager
     
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
@@ -116,6 +117,7 @@ struct VideoPreviewView: NSViewRepresentable {
         
         // Set up preview layer
         if let captureSession = virtualCameraManager.captureSession {
+            print("📹 Creating preview layer with capture session")
             let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             previewLayer.videoGravity = .resizeAspect
             previewLayer.frame = view.bounds
@@ -123,6 +125,8 @@ struct VideoPreviewView: NSViewRepresentable {
             
             // Store reference for updates
             context.coordinator.previewLayer = previewLayer
+        } else {
+            print("⚠️ No capture session available for preview")
         }
         
         return view
@@ -132,6 +136,18 @@ struct VideoPreviewView: NSViewRepresentable {
         // Update preview layer frame when view size changes
         if let previewLayer = context.coordinator.previewLayer {
             previewLayer.frame = nsView.bounds
+        }
+        
+        // Create preview layer if capture session becomes available
+        if context.coordinator.previewLayer == nil && virtualCameraManager.captureSession != nil {
+            print("📹 Capture session now available, creating preview layer")
+            if let captureSession = virtualCameraManager.captureSession {
+                let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+                previewLayer.videoGravity = .resizeAspect
+                previewLayer.frame = nsView.bounds
+                nsView.layer?.addSublayer(previewLayer)
+                context.coordinator.previewLayer = previewLayer
+            }
         }
     }
     

@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 struct StatusBarMenuView: View {
     @ObservedObject var statusBarController: StatusBarController
@@ -48,6 +49,51 @@ struct StatusBarMenuView: View {
                 
                 Divider()
                 
+                // Camera Selection
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack {
+                        Text("Camera")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
+                    
+                    if statusBarController.virtualCameraManager.availableCameras.isEmpty {
+                        Text("No cameras detected")
+                            .foregroundColor(.secondary)
+                            .italic()
+                            .font(.caption)
+                            .padding(.horizontal, 8)
+                    } else {
+                        Picker("Select Camera", selection: Binding(
+                            get: { statusBarController.virtualCameraManager.selectedCamera },
+                            set: { newCamera in
+                                if let camera = newCamera {
+                                    statusBarController.virtualCameraManager.selectCamera(camera)
+                                }
+                            }
+                        )) {
+                            ForEach(statusBarController.virtualCameraManager.availableCameras, id: \.uniqueID) { camera in
+                                Text(camera.localizedName).tag(camera as AVCaptureDevice?)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .padding(.horizontal, 8)
+                        
+                        Button("Refresh Cameras") {
+                            statusBarController.virtualCameraManager.refreshCameras()
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+                        .padding(.horizontal, 8)
+                    }
+                }
+                .padding(.horizontal)
+            }
+            
+            Divider()
+            
+            VStack(spacing: 4) {
                 // Overlay Selection
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {

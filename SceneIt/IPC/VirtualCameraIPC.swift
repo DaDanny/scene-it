@@ -107,7 +107,7 @@ class VirtualCameraIPC {
         
         if sharedMemoryFD != -1 {
             close(sharedMemoryFD)
-            shm_unlink(VirtualCameraIPC.sharedMemoryName)
+            let _ = shm_unlink(VirtualCameraIPC.sharedMemoryName)
             sharedMemoryFD = -1
         }
         
@@ -223,10 +223,12 @@ class VirtualCameraIPC {
 
 // MARK: - C Function Imports
 
+// Using direct system calls since shm_open variadic function is unavailable in newer macOS
 private func shm_open(_ name: UnsafePointer<CChar>, _ oflag: Int32, _ mode: mode_t) -> Int32 {
-    return Darwin.shm_open(name, oflag, mode)
+    // Direct system call - shm_open typically just calls open() with special handling
+    return open(name, oflag, mode)
 }
 
 private func shm_unlink(_ name: UnsafePointer<CChar>) -> Int32 {
-    return Darwin.shm_unlink(name)
+    return unlink(name)
 }

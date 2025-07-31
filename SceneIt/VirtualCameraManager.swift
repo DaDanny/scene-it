@@ -1,10 +1,12 @@
 import AVFoundation
 import CoreMediaIO
 import CoreMedia
+
 import CoreImage
 import CoreVideo
 import Foundation
 import AppKit
+
 
 enum VirtualCameraError: Error {
     case sessionCreationFailed
@@ -50,13 +52,17 @@ class VirtualCameraManager: NSObject, ObservableObject {
     private var splashImage: CIImage?
     private var videoSize = CGSize(width: 1920, height: 1080)
     
-    // IPC Bridge
+    // IPC Bridge (simplified for immediate functionality)
     private let ipcBridge = VirtualCameraIPC()
     
     // Performance monitoring
     private var frameCount: Int = 0
     private var lastFrameRateUpdate = Date()
     private let frameRateUpdateInterval: TimeInterval = 1.0
+    
+    // Camera selection properties
+    @Published var availableCameras: [AVCaptureDevice] = []
+    @Published var selectedCamera: AVCaptureDevice?
     
     // Virtual camera device ID
     private let virtualCameraDeviceID = "com.sceneit.virtualcamera"
@@ -65,6 +71,18 @@ class VirtualCameraManager: NSObject, ObservableObject {
         super.init()
         setupVirtualCameraExtensions()
         createSplashScreen()
+        
+        // Discover available cameras
+        discoverAvailableCameras()
+        
+        // Request camera permission
+        requestCameraAccess { granted in
+            if granted {
+                print("✅ Camera permission granted")
+            } else {
+                print("❌ Camera permission denied")
+            }
+        }
         
         // Initialize IPC bridge
         if ipcBridge.initialize() {
@@ -95,15 +113,37 @@ class VirtualCameraManager: NSObject, ObservableObject {
         
         currentOverlay = overlay
         
+        // Check camera permission first
+        print("📹 Checking camera permissions...")
+        let authStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        print("📹 Camera permission status: \(authStatus.rawValue)")
+        
+        if authStatus != .authorized {
+            print("⚠️ Camera permission not granted. Status: \(authStatus)")
+            errorMessage = "Camera permission required. Please allow camera access in System Settings."
+            return
+        }
+        
+        // Register virtual camera device
+        print("📹 Registering virtual camera device...")
+        if !SimpleVirtualCamera.shared.registerVirtualCamera() {
+            errorMessage = "Failed to register virtual camera device"
+            print("❌ Failed to register virtual camera device")
+            return
+        }
+        
         do {
+            print("📹 Setting up capture session...")
             try setupCaptureSession()
+            print("📹 Starting capture session...")
             captureSession?.startRunning()
             isActive = true
             errorMessage = nil
-            print("Virtual camera started successfully")
+            print("✅ Virtual camera started successfully with session: \(captureSession != nil)")
+            print("✅ Virtual camera device registered - should appear in Google Meet")
         } catch {
             errorMessage = "Failed to start virtual camera: \(error.localizedDescription)"
-            print("Error starting virtual camera: \(error)")
+            print("❌ Error starting virtual camera: \(error)")
         }
         
         NotificationCenter.default.post(name: .virtualCameraStateChanged, object: nil)
@@ -276,9 +316,9 @@ class VirtualCameraManager: NSObject, ObservableObject {
             throw VirtualCameraError.sessionCreationFailed
         }
         
-        // Get default video device (built-in camera)
-        guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) ??
-                AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+        // Use selected camera or default to first available
+        let videoDevice = selectedCamera ?? availableCameras.first
+        guard let videoDevice = videoDevice else {
             throw VirtualCameraError.noVideoDeviceAvailable
         }
         
@@ -666,6 +706,52 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         if !success {
             print("Failed to send splash screen to virtual camera")
         }
+    }
+    
+    // MARK: - Camera Management
+    
+    private func discoverAvailableCameras() {
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [
+                .builtInWideAngleCamera,
+                .externalUnknown,
+                .continuityCamera
+            ],
+            mediaType: .video,
+            position: .unspecified
+        )
+        
+        availableCameras = discoverySession.devices
+        
+        // Set default camera if none selected
+        if selectedCamera == nil && !availableCameras.isEmpty {
+            selectedCamera = availableCameras.first
+        }
+        
+        print("📹 Discovered \(availableCameras.count) cameras:")
+        for (index, camera) in availableCameras.enumerated() {
+            print("  \(index + 1). \(camera.localizedName) - \(camera.deviceType.rawValue)")
+        }
+    }
+    
+    func selectCamera(_ camera: AVCaptureDevice) {
+        guard availableCameras.contains(camera) else { return }
+        
+        print("📹 Switching to camera: \(camera.localizedName)")
+        selectedCamera = camera
+        
+        // Restart capture session with new camera if active
+        if isActive {
+            let currentOverlay = self.currentOverlay
+            stopVirtualCamera()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.startVirtualCamera(with: currentOverlay)
+            }
+        }
+    }
+    
+    func refreshCameras() {
+        discoverAvailableCameras()
     }
     
     // MARK: - Plugin Connection Management

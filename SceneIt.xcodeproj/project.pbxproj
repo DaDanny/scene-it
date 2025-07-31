@@ -14,8 +14,13 @@
 		8D1107340486CEB800E47093 /* VirtualCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107340486CEB800E47003 /* VirtualCameraManager.swift */; };
 		8D1107350486CEB800E47094 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107350486CEB800E47004 /* Overlay.swift */; };
 		8D1107360486CEB800E47095 /* StatusBarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107360486CEB800E47005 /* StatusBarMenuView.swift */; };
-		8D1107380486CEB800E47098 /* VideoPreviewWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107380486CEB800E47011 /* VideoPreviewWindow.swift */; };
-		8D1107390486CEB800E47099 /* VirtualCameraIPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107390486CEB800E47012 /* VirtualCameraIPC.swift */; };
+		8D1107370486CEB800E47098 /* VideoPreviewWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */; };
+		8D1107380486CEB800E47099 /* VirtualCameraIPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */; };
+8D1107400486CEB800E47200 /* SimpleVirtualCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */; };
+		8D1107390486CEB800E47100 /* SceneItCMIOExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107390486CEB800E47013 /* SceneItCMIOExtension.swift */; };
+		8D11073A0486CEB800E47101 /* SceneItCMIOProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11073A0486CEB800E47014 /* SceneItCMIOProvider.swift */; };
+		8D11073B0486CEB800E47102 /* CMIOExtensionIPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11073B0486CEB800E47015 /* CMIOExtensionIPC.swift */; };
+		8D11073C0486CEB800E47103 /* CMIOExtensionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11073C0486CEB800E47017 /* CMIOExtensionTypes.swift */; };
 		C99EBCCE2E3B22F200224C7B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99EBCCD2E3B22EE00224C7B /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,13 +30,19 @@
 		8D1107320486CEB800E47001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8D1107320486CEB800E47007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47008 /* SceneIt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SceneIt.entitlements; sourceTree = "<group>"; };
+		8D1107320486CEB800E47016 /* SceneIt-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SceneIt-Development.entitlements"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47009 /* SceneIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1107330486CEB800E47002 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		8D1107340486CEB800E47003 /* VirtualCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraManager.swift; sourceTree = "<group>"; };
 		8D1107350486CEB800E47004 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		8D1107360486CEB800E47005 /* StatusBarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarMenuView.swift; sourceTree = "<group>"; };
-		8D1107380486CEB800E47011 /* VideoPreviewWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewWindow.swift; sourceTree = "<group>"; };
-		8D1107390486CEB800E47012 /* VirtualCameraIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraIPC.swift; sourceTree = "<group>"; };
+		8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewWindow.swift; sourceTree = "<group>"; };
+		8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraIPC.swift; sourceTree = "<group>"; };
+8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SimpleVirtualCamera.swift; path = SceneIt/SimpleVirtualCamera.swift; sourceTree = "<group>"; };
+		8D1107390486CEB800E47013 /* SceneItCMIOExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCMIOExtension.swift; sourceTree = "<group>"; };
+		8D11073A0486CEB800E47014 /* SceneItCMIOProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCMIOProvider.swift; sourceTree = "<group>"; };
+		8D11073B0486CEB800E47015 /* CMIOExtensionIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMIOExtensionIPC.swift; sourceTree = "<group>"; };
+		8D11073C0486CEB800E47017 /* CMIOExtensionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMIOExtensionTypes.swift; sourceTree = "<group>"; };
 		C99EBCCD2E3B22EE00224C7B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,7 +65,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1058C7A2FEA54F0111CA2CBA /* SceneIt */ = {
+		29B97313FDCFA39411CA2CE9 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				29B97314FDCFA39411CA2CEA /* SceneIt */,
+				29B97316FDCFA39411CA2CEC /* Products */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* SceneIt */ = {
 			isa = PBXGroup;
 			children = (
 				C99EBCCD2E3B22EE00224C7B /* main.swift */,
@@ -62,15 +82,16 @@
 				8D1107320486CEB800E47001 /* ContentView.swift */,
 				8D1107330486CEB800E47002 /* StatusBarController.swift */,
 				8D1107340486CEB800E47003 /* VirtualCameraManager.swift */,
-				29B97314FDCFA39411CA2CEA /* Models */,
-				29B97315FDCFA39411CA2CEB /* Views */,
-				29B97317FDCFA39411CA2CED /* IPC */,
-				29B97316FDCFA39411CA2CEC /* Resources */,
+				29B97314FDCFA39411CA2CEB /* Models */,
+				29B97314FDCFA39411CA2CEC /* Views */,
+				29B97314FDCFA39411CA2CED /* IPC */,
+				29B97314FDCFA39411CA2CEE /* CMIOExtension */,
+				29B97315FDCFA39411CA2CEF /* Resources */,
 			);
 			path = SceneIt;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* Models */ = {
+		29B97314FDCFA39411CA2CEB /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				8D1107350486CEB800E47004 /* Overlay.swift */,
@@ -78,39 +99,50 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEB /* Views */ = {
+		29B97314FDCFA39411CA2CEC /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				8D1107360486CEB800E47005 /* StatusBarMenuView.swift */,
-				8D1107380486CEB800E47011 /* VideoPreviewWindow.swift */,
+				8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		29B97317FDCFA39411CA2CED /* IPC */ = {
+		29B97314FDCFA39411CA2CED /* IPC */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107390486CEB800E47012 /* VirtualCameraIPC.swift */,
+				8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */,
 			);
 			path = IPC;
 			sourceTree = "<group>";
 		};
-		29B97316FDCFA39411CA2CEC /* Resources */ = {
+		29B97314FDCFA39411CA2CEE /* CMIOExtension */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107390486CEB800E47013 /* SceneItCMIOExtension.swift */,
+				8D11073A0486CEB800E47014 /* SceneItCMIOProvider.swift */,
+				8D11073B0486CEB800E47015 /* CMIOExtensionIPC.swift */,
+				8D11073C0486CEB800E47017 /* CMIOExtensionTypes.swift */,
+			);
+			path = CMIOExtension;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				8D11072F0486CEB800E47006 /* Assets.xcassets */,
 				8D1107320486CEB800E47007 /* Info.plist */,
 				8D1107320486CEB800E47008 /* SceneIt.entitlements */,
+				8D1107320486CEB800E47016 /* SceneIt-Development.entitlements */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		29B97317FDCFA39411CA2CED = {
+		29B97316FDCFA39411CA2CEC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7A2FEA54F0111CA2CBA /* SceneIt */,
-				1058C7A0FEA54F0111CA2CBB /* Products */,
 			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,7 +161,6 @@
 			dependencies = (
 			);
 			name = SceneIt;
-			productInstallPath = "$(HOME)/Applications";
 			productName = SceneIt;
 			productReference = 8D1107320486CEB800E47009 /* SceneIt.app */;
 			productType = "com.apple.product-type.application";
@@ -137,17 +168,17 @@
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		29B97313FDCFA39411CA2CEF /* Project object */ = {
+		29B97313FDCFA39411CA2CE8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1640;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Scene It";
 				TargetAttributes = {
 					8D1107260486CEB800E47080 = {
-						CreatedOnToolsVersion = 15.0;
-						ProvisioningStyle = Automatic;
+						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 					};
 				};
 			};
@@ -159,7 +190,7 @@
 				en,
 				Base,
 			);
-			mainGroup = 29B97317FDCFA39411CA2CED;
+			mainGroup = 29B97313FDCFA39411CA2CE9 /* Project */;
 			productRefGroup = 1058C7A0FEA54F0111CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -192,8 +223,12 @@
 				8D1107340486CEB800E47093 /* VirtualCameraManager.swift in Sources */,
 				8D1107350486CEB800E47094 /* Overlay.swift in Sources */,
 				8D1107360486CEB800E47095 /* StatusBarMenuView.swift in Sources */,
-				8D1107380486CEB800E47098 /* VideoPreviewWindow.swift in Sources */,
-				8D1107390486CEB800E47099 /* VirtualCameraIPC.swift in Sources */,
+				8D1107370486CEB800E47098 /* VideoPreviewWindow.swift in Sources */,
+				8D1107380486CEB800E47099 /* VirtualCameraIPC.swift in Sources */,
+				8D1107400486CEB800E47200 /* SimpleVirtualCamera.swift in Sources */,
+							// CMIOExtension classes temporarily disabled - requires separate system extension target
+			// 8D11073A0486CEB800E47101 /* SceneItCMIOProvider.swift in Sources */,
+			// 8D11073B0486CEB800E47102 /* CMIOExtensionIPC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,26 +239,31 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = SceneIt/Resources/SceneIt.entitlements;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SceneIt/Resources/SceneIt-Development.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 378NGS49HA;
 				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SceneIt/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Scene It";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scene It needs access to your camera to provide virtual camera functionality with overlays for video conferencing apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Scene It may need access to your microphone for virtual camera functionality.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sceneit.SceneIt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.SceneIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -233,26 +273,31 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = SceneIt/Resources/SceneIt.entitlements;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SceneIt/Resources/SceneIt-Development.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 378NGS49HA;
 				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SceneIt/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Scene It";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scene It needs access to your camera to provide virtual camera functionality with overlays for video conferencing apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Scene It may need access to your microphone for virtual camera functionality.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sceneit.SceneIt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.SceneIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -292,9 +337,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 378NGS49HA;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -313,7 +356,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -357,9 +400,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 378NGS49HA;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -372,7 +413,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -403,5 +444,5 @@
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 29B97313FDCFA39411CA2CEF /* Project object */;
+	rootObject = 29B97313FDCFA39411CA2CE8 /* Project object */;
 }

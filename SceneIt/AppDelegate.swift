@@ -90,7 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             HStack {
                 Button("Show Preview") {
-                    statusBarController?.togglePreviewWindow()
+                    self.statusBarController?.togglePreviewWindow()
                 }
                 .buttonStyle(.borderedProminent)
                 

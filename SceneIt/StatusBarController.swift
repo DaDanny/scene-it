@@ -3,7 +3,7 @@ import SwiftUI
 
 class StatusBarController: ObservableObject {
     private var statusBarItem: NSStatusItem?
-    private var virtualCameraManager: VirtualCameraManager
+    var virtualCameraManager: VirtualCameraManager
     @Published var isVirtualCameraActive = false
     @Published var selectedOverlay: Overlay?
     
@@ -187,7 +187,7 @@ class StatusBarController: ObservableObject {
         updateMenu() // Refresh menu to show new selection
     }
     
-    @objc private func togglePreviewWindow() {
+    @objc func togglePreviewWindow() {
         if let windowController = previewWindowController {
             if windowController.window?.isVisible == true {
                 windowController.window?.close()

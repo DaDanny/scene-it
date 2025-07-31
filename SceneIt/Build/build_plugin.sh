@@ -1,53 +1,27 @@
 #!/bin/bash
 
-# Scene It Virtual Camera Plugin Build Script
-# This script builds and installs the CoreMediaIO DAL plugin
+# Scene It Virtual Camera Build Script
+# This script builds the CMIOExtension-based virtual camera
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-PLUGIN_DIR="$PROJECT_ROOT/SceneItVirtualCamera.plugin"
-PLUGIN_NAME="SceneItVirtualCamera"
+PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
-echo "🔨 Building Scene It Virtual Camera Plugin..."
+echo "🔨 Building Scene It Virtual Camera (CMIOExtension)..."
+echo "📁 Script dir: $SCRIPT_DIR"
+echo "📁 Project root: $PROJECT_ROOT"
 
-# Change to plugin directory
-cd "$PLUGIN_DIR/Contents/Resources"
+# Build the main app and extension
+echo "🔨 Building SceneIt app with CMIOExtension..."
+cd "$PROJECT_ROOT"
 
-# Clean previous build
-echo "🧹 Cleaning previous build..."
-make clean
+# Build using xcodebuild
+xcodebuild -project SceneIt.xcodeproj -scheme SceneIt -configuration Release build
 
-# Build the plugin
-echo "🔨 Building plugin..."
-make
-
-# Check if build was successful
-if [ -f "../MacOS/$PLUGIN_NAME" ]; then
-    echo "✅ Plugin built successfully!"
-    
-    # Ask user if they want to install
-    read -p "📦 Install plugin to system? (y/N): " -n 1 -r
-    echo
-    
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo "📦 Installing plugin..."
-        make install
-        echo "✅ Plugin installed!"
-        echo ""
-        echo "🎉 Scene It Virtual Camera plugin is now available!"
-        echo "📱 Restart your video applications to see 'Scene It Virtual Camera' in camera lists."
-        echo ""
-        echo "🔧 To uninstall later, run: make uninstall"
-    else
-        echo "⏭️ Plugin built but not installed."
-        echo "📦 To install later, run: make install"
-    fi
-else
-    echo "❌ Plugin build failed!"
-    exit 1
-fi
-
+echo "✅ Scene It Virtual Camera built successfully!"
+echo ""
+echo "🎉 Scene It Virtual Camera (CMIOExtension) is ready!"
+echo "📱 The virtual camera will be available when Scene It app is running."
 echo ""
 echo "🎯 Build process complete!"
