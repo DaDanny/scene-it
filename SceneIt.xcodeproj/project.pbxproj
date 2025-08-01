@@ -3,56 +3,28 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		8D11072F0486CEB800E47096 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D11072F0486CEB800E47006 /* Assets.xcassets */; };
-		8D1107310486CEB800E47090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47000 /* AppDelegate.swift */; };
-		8D1107320486CEB800E47091 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107320486CEB800E47001 /* ContentView.swift */; };
-		8D1107330486CEB800E47092 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107330486CEB800E47002 /* StatusBarController.swift */; };
-		8D1107340486CEB800E47093 /* VirtualCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107340486CEB800E47003 /* VirtualCameraManager.swift */; };
-		8D1107350486CEB800E47094 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107350486CEB800E47004 /* Overlay.swift */; };
-		8D1107360486CEB800E47095 /* StatusBarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107360486CEB800E47005 /* StatusBarMenuView.swift */; };
-		8D1107370486CEB800E47098 /* VideoPreviewWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */; };
-		8D1107380486CEB800E47099 /* VirtualCameraIPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */; };
-		8D1107410486CEB800E47202 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107410486CEB800E47203 /* AppSettings.swift */; };
-		8D1107420486CEB800E47204 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107420486CEB800E47205 /* SettingsView.swift */; };
-		C93136402E3C7B1600502BB1 /* OnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363D2E3C7B1600502BB1 /* OnboardingFlow.swift */; };
-		C93136412E3C7B1600502BB1 /* FloatingControlMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363C2E3C7B1600502BB1 /* FloatingControlMenu.swift */; };
-		C93136422E3C7B1600502BB1 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363F2E3C7B1600502BB1 /* WelcomeScreen.swift */; };
-		C93136432E3C7B1600502BB1 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363E2E3C7B1600502BB1 /* SplashScreen.swift */; };
-		C93136472E3C7B3600502BB1 /* AppFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93136452E3C7B3600502BB1 /* AppFlowManager.swift */; };
-		C93136482E3C7B3600502BB1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93136442E3C7B3600502BB1 /* App.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		8D11072F0486CEB800E47006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8D1107310486CEB800E47000 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8D1107320486CEB800E47001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8D1107320486CEB800E47007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47008 /* SceneIt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SceneIt.entitlements; sourceTree = "<group>"; };
 		8D1107320486CEB800E47009 /* SceneIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D1107320486CEB800E47016 /* SceneIt-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SceneIt-Development.entitlements"; sourceTree = "<group>"; };
-		8D1107330486CEB800E47002 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
-		8D1107340486CEB800E47003 /* VirtualCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraManager.swift; sourceTree = "<group>"; };
-		8D1107350486CEB800E47004 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
-		8D1107360486CEB800E47005 /* StatusBarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarMenuView.swift; sourceTree = "<group>"; };
-		8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewWindow.swift; sourceTree = "<group>"; };
-		8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraIPC.swift; sourceTree = "<group>"; };
-		8D1107390486CEB800E47013 /* SceneItCMIOExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCMIOExtension.swift; sourceTree = "<group>"; };
-		8D11073A0486CEB800E47014 /* SceneItCMIOProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCMIOProvider.swift; sourceTree = "<group>"; };
-		8D11073B0486CEB800E47015 /* CMIOExtensionIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMIOExtensionIPC.swift; sourceTree = "<group>"; };
-		8D11073C0486CEB800E47017 /* CMIOExtensionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMIOExtensionTypes.swift; sourceTree = "<group>"; };
-		8D1107410486CEB800E47203 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		8D1107420486CEB800E47205 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		C931363C2E3C7B1600502BB1 /* FloatingControlMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingControlMenu.swift; sourceTree = "<group>"; };
-		C931363D2E3C7B1600502BB1 /* OnboardingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlow.swift; sourceTree = "<group>"; };
-		C931363E2E3C7B1600502BB1 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
-		C931363F2E3C7B1600502BB1 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
-		C93136442E3C7B3600502BB1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		C93136452E3C7B3600502BB1 /* AppFlowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C971546F2E3D031C00BFA128 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CMIOExtension/SceneItCMIOExtension.swift,
+				CMIOExtension/SceneItCMIOProvider.swift,
+				Resources/Info.plist,
+			);
+			target = 8D1107260486CEB800E47080 /* SceneIt */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C97154572E3D031C00BFA128 /* SceneIt */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C971546F2E3D031C00BFA128 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SceneIt; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8D11072A0486CEB800E47084 /* Frameworks */ = {
@@ -76,81 +48,10 @@
 		29B97313FDCFA39411CA2CE9 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				29B97314FDCFA39411CA2CEA /* SceneIt */,
+				C97154572E3D031C00BFA128 /* SceneIt */,
 				29B97316FDCFA39411CA2CEC /* Products */,
 			);
 			name = Project;
-			sourceTree = "<group>";
-		};
-		29B97314FDCFA39411CA2CEA /* SceneIt */ = {
-			isa = PBXGroup;
-			children = (
-				C93136442E3C7B3600502BB1 /* App.swift */,
-				C93136462E3C7B3600502BB1 /* Controllers */,
-				8D1107310486CEB800E47000 /* AppDelegate.swift */,
-				8D1107320486CEB800E47001 /* ContentView.swift */,
-				8D1107330486CEB800E47002 /* StatusBarController.swift */,
-				8D1107340486CEB800E47003 /* VirtualCameraManager.swift */,
-				29B97314FDCFA39411CA2CEB /* Models */,
-				29B97314FDCFA39411CA2CEC /* Views */,
-				29B97314FDCFA39411CA2CED /* IPC */,
-				29B97314FDCFA39411CA2CEE /* CMIOExtension */,
-				29B97315FDCFA39411CA2CEF /* Resources */,
-			);
-			path = SceneIt;
-			sourceTree = "<group>";
-		};
-		29B97314FDCFA39411CA2CEB /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				8D1107350486CEB800E47004 /* Overlay.swift */,
-				8D1107410486CEB800E47203 /* AppSettings.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		29B97314FDCFA39411CA2CEC /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				C931363C2E3C7B1600502BB1 /* FloatingControlMenu.swift */,
-				C931363D2E3C7B1600502BB1 /* OnboardingFlow.swift */,
-				C931363E2E3C7B1600502BB1 /* SplashScreen.swift */,
-				C931363F2E3C7B1600502BB1 /* WelcomeScreen.swift */,
-				8D1107360486CEB800E47005 /* StatusBarMenuView.swift */,
-				8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */,
-				8D1107420486CEB800E47205 /* SettingsView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		29B97314FDCFA39411CA2CED /* IPC */ = {
-			isa = PBXGroup;
-			children = (
-				8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */,
-			);
-			path = IPC;
-			sourceTree = "<group>";
-		};
-		29B97314FDCFA39411CA2CEE /* CMIOExtension */ = {
-			isa = PBXGroup;
-			children = (
-				8D1107390486CEB800E47013 /* SceneItCMIOExtension.swift */,
-				8D11073A0486CEB800E47014 /* SceneItCMIOProvider.swift */,
-				8D11073B0486CEB800E47015 /* CMIOExtensionIPC.swift */,
-				8D11073C0486CEB800E47017 /* CMIOExtensionTypes.swift */,
-			);
-			path = CMIOExtension;
-			sourceTree = "<group>";
-		};
-		29B97315FDCFA39411CA2CEF /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8D11072F0486CEB800E47006 /* Assets.xcassets */,
-				8D1107320486CEB800E47007 /* Info.plist */,
-				8D1107320486CEB800E47008 /* SceneIt.entitlements */,
-				8D1107320486CEB800E47016 /* SceneIt-Development.entitlements */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		29B97316FDCFA39411CA2CEC /* Products */ = {
@@ -158,14 +59,6 @@
 			children = (
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C93136462E3C7B3600502BB1 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				C93136452E3C7B3600502BB1 /* AppFlowManager.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +75,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C97154572E3D031C00BFA128 /* SceneIt */,
 			);
 			name = SceneIt;
 			productName = SceneIt;
@@ -228,7 +124,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072F0486CEB800E47096 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,23 +134,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D1107310486CEB800E47090 /* AppDelegate.swift in Sources */,
-				C93136402E3C7B1600502BB1 /* OnboardingFlow.swift in Sources */,
-				C93136412E3C7B1600502BB1 /* FloatingControlMenu.swift in Sources */,
-				C93136422E3C7B1600502BB1 /* WelcomeScreen.swift in Sources */,
-				C93136432E3C7B1600502BB1 /* SplashScreen.swift in Sources */,
-				8D1107320486CEB800E47091 /* ContentView.swift in Sources */,
-				8D1107330486CEB800E47092 /* StatusBarController.swift in Sources */,
-				8D1107340486CEB800E47093 /* VirtualCameraManager.swift in Sources */,
-				8D1107350486CEB800E47094 /* Overlay.swift in Sources */,
-				8D1107360486CEB800E47095 /* StatusBarMenuView.swift in Sources */,
-				8D1107370486CEB800E47098 /* VideoPreviewWindow.swift in Sources */,
-				8D1107380486CEB800E47099 /* VirtualCameraIPC.swift in Sources */,
-				8D1107400486CEB800E47200 /* SimpleVirtualCamera.swift in Sources */,
-				8D1107410486CEB800E47202 /* AppSettings.swift in Sources */,
-				8D1107420486CEB800E47204 /* SettingsView.swift in Sources */,
-				C93136472E3C7B3600502BB1 /* AppFlowManager.swift in Sources */,
-				C93136482E3C7B3600502BB1 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
