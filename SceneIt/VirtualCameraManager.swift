@@ -227,7 +227,7 @@ class VirtualCameraManager: NSObject, ObservableObject {
         
         // Add text overlay to the splash screen
         let textImage = createTextImage(
-            text: "Scene It\nVirtual Camera\n\nCamera Not Active\n\nStart Scene It to enable virtual camera",
+                                text: "Ritually\nVirtual Camera\n\nCamera Not Active\n\nStart Ritually to enable virtual camera",
             size: videoSize
         )
         
@@ -572,7 +572,7 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
             .cropped(to: logoRect)
         
         // Add text overlay for branding
-        let brandText = createTextImage(text: "Scene It", size: logoAreaSize)
+                    let brandText = createTextImage(text: "Ritually", size: logoAreaSize)
         
         var overlayImage = CIImage(color: CIColor.clear).cropped(to: rect)
         

@@ -180,7 +180,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
-				ORGANIZATIONNAME = "Scene It";
+				ORGANIZATIONNAME = "Ritually";
 				TargetAttributes = {
 					8D1107260486CEB800E47080 = {
 						CreatedOnToolsVersion = 16.0;
@@ -261,9 +261,9 @@
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_LSUIElement = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Scene It needs access to your camera to provide virtual camera functionality with overlays for video conferencing apps.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Ritually needs access to your camera to provide virtual camera functionality with overlays for video conferencing apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Scene It may need access to your microphone for virtual camera functionality.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Ritually may need access to your microphone for virtual camera functionality.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -295,9 +295,9 @@
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_LSUIElement = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Scene It needs access to your camera to provide virtual camera functionality with overlays for video conferencing apps.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Ritually needs access to your camera to provide virtual camera functionality with overlays for video conferencing apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Scene It may need access to your microphone for virtual camera functionality.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Ritually may need access to your microphone for virtual camera functionality.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

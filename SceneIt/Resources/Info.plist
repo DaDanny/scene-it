@@ -11,7 +11,7 @@
 		<key>CMIOExtensionPrincipalClass</key>
 		<string>SceneItCMIOProvider</string>
 		<key>CMIOExtensionProviderName</key>
-		<string>Scene It Virtual Camera Provider</string>
+		<string>Ritually Virtual Camera Provider</string>
 		<key>CMIOExtensionVersion</key>
 		<string>2.0</string>
 	</dict>

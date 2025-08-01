@@ -12,7 +12,7 @@ class SceneItCMIOProvider: NSObject {
     
     // Provider configuration  
     static let providerSource = CMIOExtensionProviderSource(clientQueue: nil) { (deviceID) in
-        SceneItCMIODevice(deviceID: deviceID, localizedName: "Scene It Virtual Camera")
+                    SceneItCMIODevice(deviceID: deviceID, localizedName: "Ritually Virtual Camera")
     }
     
     private var _streamSource: SceneItCMIOStreamSource?
@@ -72,7 +72,7 @@ class SceneItCMIODevice: CMIOExtensionDeviceSource {
         super.init(localizedName: localizedName)
         
         let streamID = SceneItCMIOProvider.streamID
-        _streamSource = SceneItCMIOStreamSource(localizedName: "Scene It Video Stream", streamID: streamID, direction: .source, clockType: .hostTime, source: self)
+        _streamSource = SceneItCMIOStreamSource(localizedName: "Ritually Video Stream", streamID: streamID, direction: .source, clockType: .hostTime, source: self)
         
         logger.info("SceneItCMIODevice initialized")
     }
@@ -91,7 +91,7 @@ class SceneItCMIODevice: CMIOExtensionDeviceSource {
             deviceProperties.transportType = kIOAudioDeviceTransportTypeVirtual
         }
         if properties.contains(.deviceModel) {
-            deviceProperties.model = "Scene It Virtual Camera v2.0"
+            deviceProperties.model = "Ritually Virtual Camera v2.0"
         }
         return deviceProperties
     }

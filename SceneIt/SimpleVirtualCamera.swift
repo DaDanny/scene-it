@@ -10,7 +10,7 @@ class SimpleVirtualCamera {
     
     private let logger = Logger(subsystem: "com.sceneit.SceneIt", category: "SimpleVirtualCamera")
     private let deviceID = "com.sceneit.virtualcamera"
-    private let deviceName = "Scene It Virtual Camera"
+    private let deviceName = "Ritually Virtual Camera"
     private var isRegistered = false
     
     static let shared = SimpleVirtualCamera()
@@ -71,7 +71,7 @@ class SimpleVirtualCamera {
         let deviceInfo: [String: Any] = [
             "deviceID": deviceID,
             "deviceName": deviceName,
-            "manufacturer": "Scene It",
+            "manufacturer": "Ritually",
             "model": "Virtual Camera v2.0",
             "transport": "Virtual",
             "isActive": true

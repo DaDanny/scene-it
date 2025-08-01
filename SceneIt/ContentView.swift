@@ -7,7 +7,7 @@ struct ContentView: View {
                 .font(.system(size: 64))
                 .foregroundColor(.blue)
             
-            Text("Scene It")
+            Text("Ritually")
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
@@ -16,7 +16,7 @@ struct ContentView: View {
                 .foregroundColor(.secondary)
             
             VStack(alignment: .leading, spacing: 8) {
-                Text("Scene It is running in your menu bar.")
+                Text("Ritually is running in your menu bar.")
                     .font(.body)
                 
                 HStack {

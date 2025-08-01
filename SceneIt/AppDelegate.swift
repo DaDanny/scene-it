@@ -8,14 +8,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Basic test - this should ALWAYS show up
         print("========================================")
-        print("🚀 SCENE IT APP IS STARTING")
+        print("🚀 RITUALLY APP IS STARTING")
         print("========================================")
         
-        print("🚀 Scene It - App launching...")
+        print("🚀 Ritually - App launching...")
         
-        // Set activation policy to accessory (status bar only app)
-        NSApp.setActivationPolicy(.accessory)
-        print("✅ Set activation policy to accessory (status bar only)")
+        // Set activation policy to regular app (shows in dock + status bar)
+        NSApp.setActivationPolicy(.regular)
+        print("✅ Set activation policy to regular (dock + status bar app)")
+        
         // Initialize virtual camera manager
         virtualCameraManager = VirtualCameraManager()
         print("✅ VirtualCameraManager created")
@@ -33,7 +34,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Request camera permissions
         requestCameraPermission()
         
-        print("🎯 Scene It launch complete - Look for camera icon in menu bar!")
+        // Set up dock menu
+        setupDockMenu()
+        
+        print("🎯 Ritually launch complete!")
+        print("📱 Available in DOCK and MENU BAR for easy access")
+        print("⌨️ Keyboard shortcut: CMD+SHIFT+S")
+        print("🖱️ Right-click dock icon for quick actions")
         print("========================================")
     }
     
@@ -43,8 +50,57 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        // Don't terminate when last window is closed - we run in status bar
+        // Don't terminate when last window is closed - we run in dock and status bar
         return false
+    }
+    
+    func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
+        let dockMenu = NSMenu()
+        
+        // Toggle Virtual Camera
+        let toggleItem = NSMenuItem(title: virtualCameraManager?.isActive == true ? "Stop Virtual Camera" : "Start Virtual Camera", action: #selector(toggleVirtualCameraFromDock), keyEquivalent: "")
+        toggleItem.target = self
+        dockMenu.addItem(toggleItem)
+        
+        dockMenu.addItem(NSMenuItem.separator())
+        
+        // Show Preview
+        let previewItem = NSMenuItem(title: "Show Preview Window", action: #selector(showPreviewFromDock), keyEquivalent: "")
+        previewItem.target = self
+        dockMenu.addItem(previewItem)
+        
+        // Open Menu
+        let menuItem = NSMenuItem(title: "Open Ritually Menu", action: #selector(openMenuFromDock), keyEquivalent: "")
+        menuItem.target = self
+        dockMenu.addItem(menuItem)
+        
+        return dockMenu
+    }
+    
+    private func setupDockMenu() {
+        // The dock menu is set up via applicationDockMenu delegate method
+        print("✅ Dock menu configured - right-click dock icon for quick actions")
+    }
+    
+    @objc private func toggleVirtualCameraFromDock() {
+        statusBarController?.toggleVirtualCamera()
+    }
+    
+    @objc private func showPreviewFromDock() {
+        statusBarController?.togglePreviewWindow()
+    }
+    
+    @objc private func openMenuFromDock() {
+        // Activate the app first
+        NSApp.activate(ignoringOtherApps: true)
+        
+        // Trigger the status bar controller to show menu
+        if let statusBarController = statusBarController {
+            // Use the keyboard shortcut method for consistent behavior
+            DispatchQueue.main.async {
+                statusBarController.showMenuFromKeyboard()
+            }
+        }
     }
     
     private func requestCameraPermission() {
@@ -53,7 +109,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if !granted {
                     let alert = NSAlert()
                     alert.messageText = "Camera Access Required"
-                    alert.informativeText = "Scene It requires camera access to provide virtual camera functionality. Please grant camera permission in System Preferences."
+                    alert.informativeText = "Ritually requires camera access to provide virtual camera functionality. Please grant camera permission in System Preferences."
                     alert.alertStyle = .warning
                     alert.addButton(withTitle: "OK")
                     alert.runModal()

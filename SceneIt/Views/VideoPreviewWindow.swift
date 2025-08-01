@@ -39,7 +39,7 @@ struct VideoPreviewWindow: View {
                     .font(.title)
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Scene It Preview")
+                    Text("Ritually Preview")
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
@@ -318,7 +318,7 @@ class VideoPreviewWindowController: NSWindowController {
         super.init(window: window)
         
         // Modern window styling
-        window.title = "Scene It - Video Preview"
+        window.title = "Ritually - Video Preview"
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = true
         window.center()

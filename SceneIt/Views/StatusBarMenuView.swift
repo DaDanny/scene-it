@@ -7,15 +7,17 @@ struct StatusBarMenuView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Header
+            // Header - optimized for fast rendering
             HStack {
                 Image(systemName: "video.circle.fill")
                     .foregroundColor(.blue)
-                Text("Scene It")
+                    .imageScale(.medium) // Prevent dynamic scaling
+                Text("Ritually")
                     .font(.headline)
                 Spacer()
             }
             .padding(.horizontal)
+            .padding(.top, 8)
             
             Divider()
             
@@ -66,51 +68,82 @@ struct StatusBarMenuView: View {
                 Divider()
                 
                 // Camera Selection
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack {
-                        Text("Camera")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                    }
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Camera")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
                     
                     if statusBarController.virtualCameraManager.availableCameras.isEmpty {
-                        Text("No cameras detected")
-                            .foregroundColor(.secondary)
-                            .italic()
-                            .font(.caption)
-                            .padding(.horizontal, 8)
+                        HStack {
+                            Image(systemName: "camera.fill")
+                                .foregroundColor(.orange)
+                                .font(.caption)
+                            Text("No cameras detected")
+                                .foregroundColor(.secondary)
+                                .font(.caption)
+                            Spacer()
+                            Button("Refresh") {
+                                statusBarController.virtualCameraManager.refreshCameras()
+                            }
+                            .buttonStyle(.borderless)
+                            .controlSize(.mini)
+                            .foregroundColor(.blue)
+                        }
+                        .padding(.horizontal)
                     } else {
-                        Picker("Select Camera", selection: Binding(
-                            get: { statusBarController.virtualCameraManager.selectedCamera },
-                            set: { newCamera in
-                                if let camera = newCamera {
-                                    statusBarController.virtualCameraManager.selectCamera(camera)
+                        VStack(spacing: 4) {
+                            // Camera Picker
+                            Menu {
+                                ForEach(statusBarController.virtualCameraManager.availableCameras, id: \.uniqueID) { camera in
+                                    Button(camera.localizedName) {
+                                        statusBarController.virtualCameraManager.selectCamera(camera)
+                                    }
                                 }
+                            } label: {
+                                HStack {
+                                    Image(systemName: "camera.fill")
+                                        .foregroundColor(.blue)
+                                        .font(.caption)
+                                    Text(statusBarController.virtualCameraManager.selectedCamera?.localizedName ?? "Select Camera")
+                                        .font(.system(size: 12))
+                                        .lineLimit(1)
+                                    Spacer()
+                                    Image(systemName: "chevron.down")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(6)
                             }
-                        )) {
-                            ForEach(statusBarController.virtualCameraManager.availableCameras, id: \.uniqueID) { camera in
-                                Text(camera.localizedName).tag(camera as AVCaptureDevice?)
+                            .buttonStyle(.plain)
+                            .padding(.horizontal)
+                            
+                            // Refresh Button
+                            Button {
+                                statusBarController.virtualCameraManager.refreshCameras()
+                            } label: {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "arrow.clockwise")
+                                        .font(.caption2)
+                                    Text("Refresh Cameras")
+                                        .font(.caption2)
+                                }
+                                .foregroundColor(.blue)
                             }
+                            .buttonStyle(.plain)
+                            .padding(.horizontal)
                         }
-                        .pickerStyle(.menu)
-                        .padding(.horizontal, 8)
-                        
-                        Button("Refresh Cameras") {
-                            statusBarController.virtualCameraManager.refreshCameras()
-                        }
-                        .buttonStyle(.bordered)
-                        .controlSize(.small)
-                        .padding(.horizontal, 8)
                     }
                 }
-                .padding(.horizontal)
             }
             
             Divider()
             
             // Plugin Status
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 6) {
                 HStack {
                     Circle()
                         .fill(statusBarController.virtualCameraManager.isPluginConnected ? Color.green : Color.red)
@@ -120,29 +153,39 @@ struct StatusBarMenuView: View {
                         .foregroundColor(.secondary)
                     Spacer()
                 }
+                .padding(.horizontal)
                 
                 if !statusBarController.virtualCameraManager.isPluginConnected {
-                    Button("Install Virtual Camera Plugin") {
+                    Button {
                         statusBarController.installPlugin()
+                    } label: {
+                        HStack {
+                            Image(systemName: "square.and.arrow.down")
+                                .font(.caption)
+                            Text("Install Virtual Camera Plugin")
+                                .font(.caption)
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(Color.blue)
+                        .cornerRadius(6)
                     }
-                    .buttonStyle(.bordered)
-                    .controlSize(.small)
+                    .buttonStyle(.plain)
+                    .padding(.horizontal)
                 }
             }
-            .padding(.horizontal)
             
             Divider()
             
-            VStack(spacing: 4) {
-                // Overlay Selection
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack {
-                        Text("Overlays")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                    }
-                    
+            // Overlay Selection
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Overlays")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                
+                VStack(spacing: 2) {
                     // No Overlay Option
                     OverlayMenuItem(
                         title: "No Overlay",
@@ -168,23 +211,41 @@ struct StatusBarMenuView: View {
             
             Divider()
             
-            // Settings Button
-            Button("Settings...") {
-                openSettings()
+            // Bottom Actions
+            VStack(spacing: 8) {
+                Button {
+                    openSettings()
+                } label: {
+                    HStack {
+                        Image(systemName: "gear")
+                            .font(.caption)
+                        Text("Settings...")
+                            .font(.system(size: 12))
+                        Spacer()
+                    }
+                    .foregroundColor(.primary)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal)
+                
+                Button {
+                    NSApplication.shared.terminate(nil)
+                } label: {
+                    HStack {
+                        Image(systemName: "power")
+                            .font(.caption)
+                        Text("Quit Ritually")
+                            .font(.system(size: 12))
+                        Spacer()
+                    }
+                    .foregroundColor(.secondary)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal)
+                .padding(.bottom, 12)
             }
-            .buttonStyle(PlainButtonStyle())
-            .padding(.horizontal)
-            .padding(.vertical, 2)
-            
-            // Quit Button
-            Button("Quit Scene It") {
-                NSApplication.shared.terminate(nil)
-            }
-            .buttonStyle(PlainButtonStyle())
-            .padding(.horizontal)
-            .padding(.bottom, 4)
         }
-        .frame(width: 220)
+        .frame(width: 240)
         .background(Color(NSColor.windowBackgroundColor))
     }
     
@@ -201,7 +262,7 @@ struct StatusBarMenuView: View {
             defer: false
         )
         
-        window.title = "Scene It Settings"
+        window.title = "Ritually Settings"
         window.contentViewController = hostingController
         window.center()
         window.makeKeyAndOrderFront(nil)
@@ -221,19 +282,20 @@ struct OverlayMenuItem: View {
             HStack {
                 Text(title)
                     .font(.system(size: 12))
+                    .foregroundColor(isSelected ? .blue : .primary)
                 Spacer()
                 if isSelected {
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 10))
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 12))
                         .foregroundColor(.blue)
                 }
             }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(isSelected ? Color.blue.opacity(0.1) : Color.clear)
+            .cornerRadius(6)
         }
-        .buttonStyle(PlainButtonStyle())
-        .padding(.horizontal, 8)
-        .padding(.vertical, 2)
-        .background(isSelected ? Color.blue.opacity(0.1) : Color.clear)
-        .cornerRadius(4)
+        .buttonStyle(.plain)
     }
 }
 

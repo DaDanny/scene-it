@@ -23,8 +23,8 @@ protocol CMIOExtensionProvider: NSObject {
 /// Placeholder for CMIOExtensionDevice
 class CMIOExtensionDevice: NSObject {
     var deviceID: UUID { return UUID() }
-    var name: String { return "Scene It Virtual Camera" }
-    var manufacturer: String { return "Scene It" }
+    var name: String { return "Ritually Virtual Camera" }
+    var manufacturer: String { return "Ritually" }
     var model: String { return "Virtual Camera v2.0" }
     var streams: [CMIOExtensionStream] { return [] }
     

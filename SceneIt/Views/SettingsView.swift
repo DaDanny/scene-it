@@ -8,7 +8,7 @@ struct SettingsView: View {
     
     @State private var tempUserName: String = ""
     @State private var tempUserJobTitle: String = ""
-    @State private var tempSelectedCameraID: String = ""
+    @State private var tempSelectedCameraID: String? = nil
     
     init(virtualCameraManager: VirtualCameraManager) {
         self.virtualCameraManager = virtualCameraManager
@@ -19,7 +19,7 @@ struct SettingsView: View {
             // Header
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Scene It Settings")
+                    Text("Ritually Settings")
                         .font(.title2)
                         .fontWeight(.bold)
                     
@@ -99,12 +99,15 @@ struct SettingsView: View {
                         .padding(.vertical, 8)
                     } else {
                         Picker("Select Camera", selection: $tempSelectedCameraID) {
+                            Text("No Camera Selected")
+                                .tag(nil as String?)
+                            
                             ForEach(virtualCameraManager.availableCameras, id: \.uniqueID) { camera in
                                 HStack {
                                     Image(systemName: cameraIcon(for: camera))
                                     Text(camera.localizedName)
                                 }
-                                .tag(camera.uniqueID)
+                                .tag(camera.uniqueID as String?)
                             }
                         }
                         .pickerStyle(.menu)
@@ -113,7 +116,8 @@ struct SettingsView: View {
                 }
                 
                 // Camera Info
-                if let selectedCamera = virtualCameraManager.availableCameras.first(where: { $0.uniqueID == tempSelectedCameraID }) {
+                if let selectedCameraID = tempSelectedCameraID,
+                   let selectedCamera = virtualCameraManager.availableCameras.first(where: { $0.uniqueID == selectedCameraID }) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Selected Camera Info:")
                             .font(.caption)
@@ -164,20 +168,29 @@ struct SettingsView: View {
     private func loadCurrentSettings() {
         tempUserName = settings.userName
         tempUserJobTitle = settings.userJobTitle
-        tempSelectedCameraID = settings.selectedCameraID ?? virtualCameraManager.availableCameras.first?.uniqueID ?? ""
+        
+        // Set tempSelectedCameraID to saved camera if it exists and is still available
+        if let savedCameraID = settings.selectedCameraID,
+           virtualCameraManager.availableCameras.contains(where: { $0.uniqueID == savedCameraID }) {
+            tempSelectedCameraID = savedCameraID
+        } else {
+            // Fall back to first available camera, or nil if none
+            tempSelectedCameraID = virtualCameraManager.availableCameras.first?.uniqueID
+        }
     }
     
     private func saveSettings() {
         settings.userName = tempUserName
         settings.userJobTitle = tempUserJobTitle
-        settings.selectedCameraID = tempSelectedCameraID.isEmpty ? nil : tempSelectedCameraID
+        settings.selectedCameraID = tempSelectedCameraID
         
         // Update the virtual camera manager's selected camera
-        if let selectedCamera = virtualCameraManager.availableCameras.first(where: { $0.uniqueID == tempSelectedCameraID }) {
+        if let selectedCameraID = tempSelectedCameraID,
+           let selectedCamera = virtualCameraManager.availableCameras.first(where: { $0.uniqueID == selectedCameraID }) {
             virtualCameraManager.selectCamera(selectedCamera)
         }
         
-        print("✅ Settings saved - Name: '\(tempUserName)', Job: '\(tempUserJobTitle)', Camera: \(tempSelectedCameraID)")
+        print("✅ Settings saved - Name: '\(tempUserName)', Job: '\(tempUserJobTitle)', Camera: \(tempSelectedCameraID ?? "none")")
     }
     
     private func cameraIcon(for camera: AVCaptureDevice) -> String {

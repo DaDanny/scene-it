@@ -4,7 +4,7 @@ import CoreMedia
 import CoreVideo
 import os.log
 
-/// Modern CMIOExtension-based virtual camera device for Scene It
+/// Modern CMIOExtension-based virtual camera device for Ritually
 class SceneItCMIOExtension: CMIOExtension {
     
     private let logger = Logger(subsystem: "com.sceneit.SceneIt", category: "CMIOExtension")
@@ -14,8 +14,8 @@ class SceneItCMIOExtension: CMIOExtension {
     private let sourceID = UUID(uuidString: "550e8400-e29b-41d4-a716-446655440001")!
     
     // Virtual camera properties
-    private let deviceName = "Scene It Virtual Camera"
-    private let deviceManufacturer = "Scene It"
+    private let deviceName = "Ritually Virtual Camera"
+    private let deviceManufacturer = "Ritually"
     private let deviceModel = "Virtual Camera v2.0"
     
     // Video format configuration
@@ -129,7 +129,7 @@ class SceneItCMIOExtension: CMIOExtension {
         
         switch property.mSelector {
         case CMIOObjectPropertySelector(kCMIOObjectPropertyName):
-            return "Scene It Video Stream"
+            return "Ritually Video Stream"
             
         case CMIOObjectPropertySelector(kCMIOStreamPropertyFormatDescription):
             guard let formatDescription = videoFormat else {
