@@ -4,6 +4,7 @@ import SwiftUI
 class StatusBarController: ObservableObject {
     private var statusBarItem: NSStatusItem?
     var virtualCameraManager: VirtualCameraManager
+    private var extensionInstaller = CMIOExtensionInstaller()
     @Published var isVirtualCameraActive = false
     @Published var selectedOverlay: Overlay?
     
@@ -298,21 +299,15 @@ class StatusBarController: ObservableObject {
             progressAlert.addButton(withTitle: "OK")
             
             DispatchQueue.global(qos: .userInitiated).async {
-                let success = self.virtualCameraManager.installPlugin()
+                self.extensionInstaller.installExtension()
                 
                 DispatchQueue.main.async {
                     progressAlert.window.close()
                     
                     let resultAlert = NSAlert()
-                    if success {
-                        resultAlert.messageText = "Plugin Installed Successfully"
-                        resultAlert.informativeText = "The virtual camera plugin has been installed. Restart video applications to see 'Ritually Virtual Camera' in their camera lists."
-                        resultAlert.alertStyle = .informational
-                    } else {
-                        resultAlert.messageText = "Plugin Installation Failed"
-                        resultAlert.informativeText = "There was an error installing the virtual camera plugin. Please check the console for details."
-                        resultAlert.alertStyle = .warning
-                    }
+                    resultAlert.messageText = "Extension Installation Started"
+                    resultAlert.informativeText = "The system extension installation has been initiated. Please check System Preferences → Privacy & Security to approve the extension."
+                    resultAlert.alertStyle = .informational
                     resultAlert.addButton(withTitle: "OK")
                     resultAlert.runModal()
                     
@@ -337,6 +332,3 @@ class StatusBarController: ObservableObject {
     }
 }
 
-extension Notification.Name {
-    static let virtualCameraStateChanged = Notification.Name("virtualCameraStateChanged")
-}

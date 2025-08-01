@@ -7,7 +7,7 @@
 	<key>CMIOExtension</key>
 	<dict>
 		<key>CMIOExtensionMachServiceName</key>
-		<string>com.sceneit.SceneIt.cmioextension</string>
+		<string>com.dannyfrancken.sceneit.cameraextension</string>
 		<key>CMIOExtensionPrincipalClass</key>
 		<string>SceneItCMIOProvider</string>
 		<key>CMIOExtensionProviderName</key>
@@ -17,6 +17,8 @@
 	</dict>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

@@ -5,11 +5,11 @@ import os.log
 
 /// XPC client for sending video frames to the system extension
 class XPCFrameTransmitter: NSObject {
-    private let logger = Logger(subsystem: "com.sceneit.SceneIt", category: "XPCFrameTransmitter")
+    private let logger = Logger(subsystem: "com.dannyfrancken.sceneit", category: "XPCFrameTransmitter")
     
     private var connection: NSXPCConnection?
     private var isConnected = false
-    private let connectionQueue = DispatchQueue(label: "com.sceneit.xpc.connection", qos: .userInteractive)
+    private let connectionQueue = DispatchQueue(label: "com.dannyfrancken.sceneit.xpc.connection", qos: .userInteractive)
     
     // Connection retry logic
     private let maxRetries = 3
@@ -46,7 +46,7 @@ class XPCFrameTransmitter: NSObject {
         
         logger.info("Establishing XPC connection to system extension...")
         
-        connection = NSXPCConnection(serviceName: "com.ritually.SceneIt.CameraExtension")
+        connection = NSXPCConnection(serviceName: "com.dannyfrancken.sceneit.cameraextension")
         guard let connection = connection else {
             logger.error("Failed to create XPC connection")
             handleConnectionFailure()
@@ -151,13 +151,13 @@ class XPCFrameTransmitter: NSObject {
         
         if retryCount <= maxRetries {
             let delay = TimeInterval(retryCount * 2) // Exponential backoff
-            logger.info("Retrying XPC connection in \(delay) seconds (attempt \(retryCount)/\(maxRetries))")
+            logger.info("Retrying XPC connection in \(delay) seconds (attempt \(self.retryCount)/\(self.maxRetries))")
             
             reconnectTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
                 self?.connect()
             }
         } else {
-            logger.error("Failed to establish XPC connection after \(maxRetries) attempts")
+            logger.error("Failed to establish XPC connection after \(self.maxRetries) attempts")
             
             DispatchQueue.main.async {
                 NotificationCenter.default.post(

@@ -4,13 +4,13 @@ import os.log
 
 /// Manages installation and lifecycle of the CoreMediaIO system extension
 class CMIOExtensionInstaller: NSObject, ObservableObject {
-    private let logger = Logger(subsystem: "com.sceneit.SceneIt", category: "CMIOExtensionInstaller")
+    private let logger = Logger(subsystem: "com.dannyfrancken.sceneit", category: "CMIOExtensionInstaller")
     
     @Published var status: SystemExtensionStatus = .notInstalled
     @Published var statusMessage: String = ""
     @Published var isInstalling: Bool = false
     
-    private let extensionIdentifier = "com.ritually.SceneIt.CameraExtension"
+    private let extensionIdentifier = "com.dannyfrancken.sceneit.cameraextension"
     private var currentRequest: OSSystemExtensionRequest?
     
     override init() {
@@ -122,7 +122,7 @@ class CMIOExtensionInstaller: NSObject, ObservableObject {
     
     private func getSystemExtensionErrorMessage(_ error: OSSystemExtensionError) -> String {
         switch error.code {
-        case .unknownExtension:
+        case .extensionNotFound:
             return "Extension not found in app bundle"
         case .missingEntitlement:
             return "Missing required entitlements"
@@ -208,7 +208,7 @@ class CMIOExtensionInstaller: NSObject, ObservableObject {
 
 extension CMIOExtensionInstaller: OSSystemExtensionRequestDelegate {
     
-    func request(_ request: OSSystemExtensionRequest, actionForReplacingExtension existing: OSSystemExtensionProperties) -> OSSystemExtensionRequest.ReplacementAction {
+    func request(_ request: OSSystemExtensionRequest, actionForReplacingExtension existing: OSSystemExtensionProperties, withExtension ext: OSSystemExtensionProperties) -> OSSystemExtensionRequest.ReplacementAction {
         logger.info("System extension replacement requested")
         return .replace
     }

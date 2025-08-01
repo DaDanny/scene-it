@@ -6,16 +6,24 @@
 	objectVersion = 70;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E9123463D486CEB800E47008 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91234570486CEB800E47002 /* main.swift */; };
+		E9123464E486CEB800E47009 /* SceneItCameraExtensionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91234580486CEB800E47003 /* SceneItCameraExtensionProvider.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		8D1107320486CEB800E47009 /* SceneIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91234560486CEB800E47001 /* SceneItCameraExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = SceneItCameraExtension.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91234570486CEB800E47002 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		E91234580486CEB800E47003 /* SceneItCameraExtensionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCameraExtensionProvider.swift; sourceTree = "<group>"; };
+		E91234590486CEB800E47004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9123460A486CEB800E47005 /* SceneItCameraExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SceneItCameraExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		C971546F2E3D031C00BFA128 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				CMIOExtension/SceneItCMIOExtension.swift,
-				CMIOExtension/SceneItCMIOProvider.swift,
 				Resources/Info.plist,
 			);
 			target = 8D1107260486CEB800E47080 /* SceneIt */;
@@ -34,6 +42,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E9123462C486CEB800E47007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -41,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47009 /* SceneIt.app */,
+				E91234560486CEB800E47001 /* SceneItCameraExtension.systemextension */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -49,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				C97154572E3D031C00BFA128 /* SceneIt */,
+				E9123461B486CEB800E47006 /* SceneItCameraExtension */,
 				29B97316FDCFA39411CA2CEC /* Products */,
 			);
 			name = Project;
@@ -59,6 +76,17 @@
 			children = (
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E9123461B486CEB800E47006 /* SceneItCameraExtension */ = {
+			isa = PBXGroup;
+			children = (
+				E91234570486CEB800E47002 /* main.swift */,
+				E91234580486CEB800E47003 /* SceneItCameraExtensionProvider.swift */,
+				E91234590486CEB800E47004 /* Info.plist */,
+				E9123460A486CEB800E47005 /* SceneItCameraExtension.entitlements */,
+			);
+			path = SceneItCameraExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,6 +112,22 @@
 			productReference = 8D1107320486CEB800E47009 /* SceneIt.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E9123466G486CEB800E4700B /* SceneItCameraExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9123467H486CEB800E4700C /* Build configuration list for PBXNativeTarget "SceneItCameraExtension" */;
+			buildPhases = (
+				E9123465F486CEB800E4700A /* Sources */,
+				E9123462C486CEB800E47007 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SceneItCameraExtension;
+			productName = SceneItCameraExtension;
+			productReference = E91234560486CEB800E47001 /* SceneItCameraExtension.systemextension */;
+			productType = "com.apple.product-type.system-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -93,7 +137,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
-				ORGANIZATIONNAME = Ritually;
+				ORGANIZATIONNAME = dannyfrancken;
 				TargetAttributes = {
 					8D1107260486CEB800E47080 = {
 						CreatedOnToolsVersion = 16.0;
@@ -115,6 +159,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47080 /* SceneIt */,
+				E9123466G486CEB800E4700B /* SceneItCameraExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -137,6 +182,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E9123465F486CEB800E4700A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9123463D486CEB800E47008 /* main.swift in Sources */,
+				E9123464E486CEB800E47009 /* SceneItCameraExtensionProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -147,11 +201,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = "SceneIt/Resources/SceneIt-Development.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 378NGS49HA;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 378NGS49HA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SceneIt/Resources/Info.plist;
@@ -166,9 +221,11 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.SceneIt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.sceneit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "SceneIt Development";
+				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -181,11 +238,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = "SceneIt/Resources/SceneIt-Development.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 378NGS49HA;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 378NGS49HA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SceneIt/Resources/Info.plist;
@@ -200,9 +258,11 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.SceneIt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.sceneit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "SceneIt Development";
+				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -326,6 +386,68 @@
 			};
 			name = Release;
 		};
+		E9123468I486CEB800E4700D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SceneItCameraExtension/SceneItCameraExtension.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 378NGS49HA;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SceneItCameraExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SceneIt Camera Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 dannyfrancken. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.sceneit.cameraextension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "SceneIt Camera Extension Development";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E9123469J486CEB800E4700E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SceneItCameraExtension/SceneItCameraExtension.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 378NGS49HA;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SceneItCameraExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SceneIt Camera Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 dannyfrancken. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.sceneit.cameraextension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "SceneIt Camera Extension Development";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -343,6 +465,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9123467H486CEB800E4700C /* Build configuration list for PBXNativeTarget "SceneItCameraExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9123468I486CEB800E4700D /* Debug */,
+				E9123469J486CEB800E4700E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

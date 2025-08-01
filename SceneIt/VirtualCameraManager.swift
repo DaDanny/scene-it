@@ -49,7 +49,7 @@ class VirtualCameraManager: NSObject, ObservableObject {
     private var virtualCameraOutput: AVCaptureVideoDataOutput?
     
     private var currentOverlay: Overlay?
-    private let videoQueue = DispatchQueue(label: "com.sceneit.video", qos: .userInteractive)
+    private let videoQueue = DispatchQueue(label: "com.dannyfrancken.video", qos: .userInteractive)
     
     // Core Image processing
     private let ciContext = CIContext()
@@ -70,7 +70,7 @@ class VirtualCameraManager: NSObject, ObservableObject {
     @Published var selectedCamera: AVCaptureDevice?
     
     // Virtual camera device ID
-    private let virtualCameraDeviceID = "com.sceneit.virtualcamera"
+    private let virtualCameraDeviceID = "com.dannyfrancken.virtualcamera"
     
     override init() {
         super.init()
