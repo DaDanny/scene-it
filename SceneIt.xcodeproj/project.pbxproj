@@ -16,7 +16,6 @@
 		8D1107360486CEB800E47095 /* StatusBarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107360486CEB800E47005 /* StatusBarMenuView.swift */; };
 		8D1107370486CEB800E47098 /* VideoPreviewWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */; };
 		8D1107380486CEB800E47099 /* VirtualCameraIPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */; };
-		8D1107400486CEB800E47200 /* SimpleVirtualCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */; };
 		8D1107410486CEB800E47202 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107410486CEB800E47203 /* AppSettings.swift */; };
 		8D1107420486CEB800E47204 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107420486CEB800E47205 /* SettingsView.swift */; };
 		C93136402E3C7B1600502BB1 /* OnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363D2E3C7B1600502BB1 /* OnboardingFlow.swift */; };
@@ -45,7 +44,6 @@
 		8D11073A0486CEB800E47014 /* SceneItCMIOProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCMIOProvider.swift; sourceTree = "<group>"; };
 		8D11073B0486CEB800E47015 /* CMIOExtensionIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMIOExtensionIPC.swift; sourceTree = "<group>"; };
 		8D11073C0486CEB800E47017 /* CMIOExtensionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMIOExtensionTypes.swift; sourceTree = "<group>"; };
-		8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SimpleVirtualCamera.swift; path = SceneIt/SimpleVirtualCamera.swift; sourceTree = "<group>"; };
 		8D1107410486CEB800E47203 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		8D1107420486CEB800E47205 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C931363C2E3C7B1600502BB1 /* FloatingControlMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingControlMenu.swift; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 			children = (
 				29B97314FDCFA39411CA2CEA /* SceneIt */,
 				29B97316FDCFA39411CA2CEC /* Products */,
-				C931363B2E3C7A9900502BB1 /* Recovered References */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -161,14 +158,6 @@
 			children = (
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C931363B2E3C7A9900502BB1 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		C93136462E3C7B3600502BB1 /* Controllers */ = {

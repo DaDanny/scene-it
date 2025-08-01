@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Scene It (internally called "Ritually") is a native macOS application that provides virtual camera functionality with customizable overlays for video conferencing. The app runs as a menu bar application with SwiftUI interface components and uses AVFoundation + CoreMediaIO for virtual camera implementation.
+Scene It (internally called "Ritually") is a native macOS application that provides virtual camera functionality with customizable overlays for video conferencing. The app runs as a menu bar application with SwiftUI interface components and uses AVFoundation for video processing. The virtual camera backend using CoreMediaIO Extension Framework is currently in development.
 
 ## Build and Development Commands
 
@@ -48,10 +48,10 @@ xcodebuild -project SceneIt.xcodeproj -scheme SceneIt -configuration Debug build
 - `SettingsView.swift`: User preferences and camera selection
 - `OnboardingFlow.swift`/`WelcomeScreen.swift`: First-run experience
 
-**Virtual Camera Implementation**:
-- `CMIOExtension/`: CoreMediaIO extension for virtual camera device
-- `SceneItCMIOProvider.swift`: Main CMIO provider class
-- `VirtualCameraIPC.swift`: Inter-process communication for camera data
+**Virtual Camera Implementation** (In Development):
+- `CMIOExtension/`: Contains existing CMIO extension components
+- `SceneItCMIOProvider.swift`: CMIO provider class (partial implementation)
+- Virtual camera backend implementation is in progress using native CoreMediaIO Extension Framework
 
 ### Data Models
 - `AppSettings.swift`: User preferences, camera selection, profile information
@@ -102,9 +102,10 @@ Physical Camera → AVCaptureSession → Core Image Processing → Overlay Appli
 ## Important Implementation Details
 
 ### Virtual Camera Backend
-- Currently implements CoreMediaIO extension approach
-- Alternative OBS Virtual Camera integration documented but not active
-- Frame processing uses Core Image filters for GPU-accelerated overlay rendering
+- **Current Status**: Video processing pipeline complete, virtual camera device creation in development
+- **Implementation Guide**: See `docs/COREMEDIAIO_EXTENSION_GUIDE.md` for comprehensive implementation roadmap  
+- **Approach**: Native CoreMediaIO Extension Framework with System Extensions
+- **Frame Processing**: Complete Core Image pipeline with GPU-accelerated overlay rendering
 
 ### App Lifecycle
 - Launches with splash screen, then hides main window
@@ -121,8 +122,13 @@ Physical Camera → AVCaptureSession → Core Image Processing → Overlay Appli
 - **Views/**: All SwiftUI view components
 - **Controllers/**: App flow and state management controllers  
 - **Models/**: Data models and app settings
-- **CMIOExtension/**: Virtual camera implementation
+- **CMIOExtension/**: Virtual camera implementation (partial)
 - **IPC/**: Inter-process communication components
 - **Resources/**: Assets, entitlements, Info.plist
+- **docs/**: Technical documentation and implementation guides
+
+### Key Documentation
+- **`docs/COREMEDIAIO_EXTENSION_GUIDE.md`**: Comprehensive guide for implementing the native virtual camera using CoreMediaIO Extension Framework
+- **`README.md`**: User-facing project overview and setup instructions
 
 The codebase follows modern Swift conventions with SwiftUI for UI, ObservableObject for state management, and native macOS patterns for menu bar applications.

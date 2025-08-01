@@ -144,13 +144,10 @@ class VirtualCameraManager: NSObject, ObservableObject {
             }
         }
         
-        // Register virtual camera device
-        print("📹 Registering virtual camera device...")
-        if !SimpleVirtualCamera.shared.registerVirtualCamera() {
-            errorMessage = "Failed to register virtual camera device"
-            print("❌ Failed to register virtual camera device")
-            return
-        }
+        // TODO: Register virtual camera device with native CMIO Extension
+        print("📹 Virtual camera device registration needed...")
+        print("⚠️ Native CMIO Extension not yet implemented - virtual camera won't appear in video apps")
+        // This will be replaced with proper CMIOExtensionManager registration
         
         do {
             // Stop preview session since main session will handle everything

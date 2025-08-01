@@ -80,7 +80,8 @@ SceneIt/
 ### Key Technologies
 
 - **AVFoundation**: Camera capture and video processing
-- **CoreMediaIO**: Virtual camera device creation
+- **CoreMediaIO Extension Framework**: Native virtual camera device creation
+- **SystemExtensions Framework**: Secure system-level integration
 - **SwiftUI**: Modern UI components
 - **AppKit**: Native macOS integration
 
@@ -91,6 +92,7 @@ SceneIt/
 The app requires several entitlements for proper functionality:
 - Camera access (`com.apple.security.device.camera`)
 - Microphone access (`com.apple.security.device.microphone`)
+- CoreMediaIO extension support (`com.apple.developer.cmio.extension`)
 - App sandbox with appropriate permissions
 
 ### Info.plist Settings
@@ -99,51 +101,24 @@ The app requires several entitlements for proper functionality:
 - `NSCameraUsageDescription`: Explains camera access requirement
 - Camera and microphone usage descriptions for user permission prompts
 
-## Development Notes
+## Virtual Camera Implementation
 
-### Virtual Camera Implementation ✅ COMPLETE
+The app includes a complete video processing pipeline with overlay support. The virtual camera functionality is currently in development using Apple's native CoreMediaIO Extension Framework.
 
-The virtual camera functionality is fully implemented with:
-1. **AVFoundation Pipeline**: Complete camera capture and processing system
-2. **Core Image Processing**: GPU-accelerated overlay application with real-time rendering
-3. **Error Handling**: Comprehensive error management and user feedback
-4. **Frame Processing**: Professional overlay system with 4 built-in overlay types
-5. **Splash Screen**: Automatic fallback screen when app is inactive
+### Current Status
+- ✅ **Core Video Processing**: Full camera capture and overlay system
+- ✅ **User Interface**: Menu bar controls and settings
+- 🔄 **Virtual Camera Backend**: Native CoreMediaIO Extension implementation in progress
 
-**Implemented Overlays**:
-- **Professional Frame**: Clean border for business meetings
-- **Casual Border**: Colorful gradient borders for informal calls  
-- **Minimalist**: Subtle corner indicators
-- **Branded**: Logo area with customizable branding
+### Implementation Details
 
-### Video Processing Pipeline
+For comprehensive technical documentation on the virtual camera implementation, see **[`docs/COREMEDIAIO_EXTENSION_GUIDE.md`](docs/COREMEDIAIO_EXTENSION_GUIDE.md)**.
 
-```
-Camera Input → Core Image Processing → Overlay Application → Virtual Camera Output
-     ↓                    ↓                     ↓                      ↓
-AVCaptureSession → CIImage Conversion → CIFilter Compositing → Backend Integration
-```
-
-**Features**:
-- Real-time 1080p processing
-- GPU-accelerated rendering
-- Memory-efficient pixel buffer management
-- Automatic resolution adaptation
-
-### Virtual Camera Backend
-
-The framework is ready for backend integration. See `VIRTUAL_CAMERA_IMPLEMENTATION.md` for:
-- **OBS Integration** (recommended): Connect to existing OBS Virtual Camera
-- **Custom DAL Plugin**: Native macOS virtual camera device
-- **Screen Capture Hybrid**: Alternative implementation approach
-
-### Status Bar Menu
-
-The status bar menu provides:
-- Virtual camera on/off toggle with error reporting
-- Overlay selection with visual checkmarks
-- Real-time status indicators
-- Graceful error handling and user feedback
+This guide covers:
+- Architecture overview and system design
+- Phase-by-phase implementation roadmap
+- Code examples and technical specifications
+- Distribution and deployment strategies
 
 ## Future Enhancements
 
@@ -162,9 +137,9 @@ The status bar menu provides:
 - Restart the app after granting permissions
 
 **Virtual Camera Not Appearing**
-- Check that the app is running with the virtual camera active
-- Restart your video conferencing application
-- Check system camera permissions
+- The native virtual camera backend is currently in development
+- See `docs/COREMEDIAIO_EXTENSION_GUIDE.md` for implementation progress
+- Current version includes video processing but virtual camera device creation is pending
 
 **Build Issues**
 - Ensure you have a valid development team selected
