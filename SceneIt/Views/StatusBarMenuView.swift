@@ -229,6 +229,21 @@ struct StatusBarMenuView: View {
                 .padding(.horizontal)
                 
                 Button {
+                    statusBarController.toggleFloatingControls()
+                } label: {
+                    HStack {
+                        Image(systemName: "rectangle.3.offgrid")
+                            .font(.caption)
+                        Text("Toggle Floating Controls")
+                            .font(.system(size: 12))
+                        Spacer()
+                    }
+                    .foregroundColor(.primary)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal)
+                
+                Button {
                     NSApplication.shared.terminate(nil)
                 } label: {
                     HStack {
@@ -252,23 +267,8 @@ struct StatusBarMenuView: View {
     // MARK: - Actions
     
     private func openSettings() {
-        let settingsView = SettingsView(virtualCameraManager: statusBarController.virtualCameraManager)
-        let hostingController = NSHostingController(rootView: settingsView)
-        
-        let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 450, height: 400),
-            styleMask: [.titled, .closable],
-            backing: .buffered,
-            defer: false
-        )
-        
-        window.title = "Ritually Settings"
-        window.contentViewController = hostingController
-        window.center()
-        window.makeKeyAndOrderFront(nil)
-        
-        // Keep window in front
-        window.level = .floating
+        // Use AppFlowManager for better window management
+        AppFlowManager.shared.showSettingsWindow()
     }
 }
 

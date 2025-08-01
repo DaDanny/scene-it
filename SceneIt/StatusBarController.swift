@@ -41,6 +41,24 @@ class StatusBarController: ObservableObject {
         NotificationCenter.default.removeObserver(self)
     }
     
+    // MARK: - Ritually UI Integration
+    
+    func showSettings() {
+        AppFlowManager.shared.showSettingsWindow()
+    }
+    
+    func showFloatingControls() {
+        AppFlowManager.shared.showFloatingControls()
+    }
+    
+    func hideFloatingControls() {
+        AppFlowManager.shared.hideFloatingControls()
+    }
+    
+    func toggleFloatingControls() {
+        AppFlowManager.shared.toggleFloatingControls()
+    }
+    
     private func setupStatusBarItem() {
         print("🔄 Creating NSStatusBar item...")
         

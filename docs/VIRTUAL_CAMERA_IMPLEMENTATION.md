@@ -1,6 +1,6 @@
-# Virtual Camera Implementation Guide
+# Native Virtual Camera Implementation Guide
 
-This document provides comprehensive guidance on implementing the virtual camera backend for Scene It.
+This document provides comprehensive guidance on implementing a native macOS virtual camera for Scene It using modern CoreMediaIO frameworks.
 
 ## Current Status
 
@@ -8,114 +8,73 @@ This document provides comprehensive guidance on implementing the virtual camera
 ✅ **Splash Screen System**: Complete fallback screen for inactive states  
 ✅ **Error Handling**: Robust error management and logging  
 ✅ **AVFoundation Integration**: Real camera capture and frame processing  
-🔄 **Virtual Camera Output**: Framework ready, backend implementation needed  
+🔄 **Virtual Camera Output**: Framework ready, native backend implementation needed  
 
-## Virtual Camera Backend Options
+## Implementation Strategy: Native CoreMediaIO Extension
 
-### Option 1: OBS Studio Virtual Camera Integration (Recommended)
+**Goal**: Provide a seamless, native macOS experience where users can install a single DMG and immediately use the virtual camera in any video conferencing app.
 
-**Pros**: Existing infrastructure, widely compatible, battle-tested  
-**Cons**: Requires OBS Studio to be installed  
+**Approach**: Modern CoreMediaIO System Extension using Apple's latest APIs and frameworks.
 
-#### Implementation Steps:
+### Why Native Implementation?
 
-1. **Install OBS Studio** with virtual camera plugin
-2. **Connect to OBS WebSocket API**:
-   ```swift
-   import Starscream
-   
-   class OBSVirtualCameraBackend {
-       private var webSocket: WebSocket?
-       
-       func connect() {
-           let url = URL(string: "ws://localhost:4455")!
-           let request = URLRequest(url: url)
-           webSocket = WebSocket(request: request)
-           webSocket?.connect()
-       }
-       
-       func sendFrame(_ pixelBuffer: CVPixelBuffer) {
-           // Convert pixel buffer to format OBS expects
-           // Send via WebSocket or shared memory
-       }
-   }
-   ```
+**Pros**: 
+- ✅ Zero external dependencies - single app installation
+- ✅ Native macOS integration and performance
+- ✅ Automatic system registration and discovery
+- ✅ Code signing and notarization support
+- ✅ Mac App Store compatibility potential
+- ✅ Professional user experience
 
-3. **Frame Transfer**: Use shared memory or WebSocket binary frames
-4. **Integration**: Replace `sendToVirtualCamera()` calls with OBS backend
+**Cons**: 
+- ⚠️ More complex initial implementation
+- ⚠️ Requires System Extension approval process
 
-#### Required Dependencies:
-```swift
-// Package.swift
-.package(url: "https://github.com/daltoniam/Starscream.git", from: "4.0.0")
+### Modern Architecture: System Extension + Main App
+
+The native implementation consists of two coordinated components:
+
+```
+SceneIt.xcodeproj
+├── SceneIt (Main App)                    - User interface, video processing, overlays
+└── SceneItCameraExtension (System Ext)   - Virtual camera device provider
 ```
 
-### Option 2: Custom CoreMediaIO DAL Plugin
+#### **1. Main App (SceneIt)**
+- **Purpose**: User interface, camera capture, overlay processing
+- **Framework**: SwiftUI + AVFoundation + CoreImage  
+- **Role**: Process real camera → Apply overlays → Send to System Extension
 
-**Pros**: Native integration, no external dependencies, full control  
-**Cons**: Complex implementation, requires system-level programming  
+#### **2. System Extension (SceneItCameraExtension)**
+- **Purpose**: Provide virtual camera device to macOS
+- **Framework**: CoreMediaIO Extension Framework
+- **Role**: Receive processed frames → Present as camera device → Appear in video apps
 
-#### Implementation Steps:
+#### **3. Communication Bridge**
+- **Method**: XPC (inter-process communication) + Shared Memory
+- **Data Flow**: Main App → [XPC/Memory] → System Extension → macOS Camera System
 
-1. **Create DAL Plugin Bundle**:
-   ```
-   SceneItVirtualCamera.plugin/
-   ├── Contents/
-   │   ├── Info.plist
-   │   └── MacOS/
-   │       └── SceneItVirtualCamera
-   ```
+### Implementation Using Modern Apple Frameworks
 
-2. **Implement DAL Plugin Interface**:
-   ```cpp
-   // SceneItVirtualCamera.cpp
-   #include <CoreMediaIO/CMIOHardwarePlugin.h>
-   
-   extern "C" {
-       OSStatus SceneItVirtualCamera_Initialize(CFUUIDRef requestedTypeUUID);
-       OSStatus SceneItVirtualCamera_CreatePlugIn(CFAllocatorRef allocator, 
-                                                   CFUUIDRef requestedTypeUUID, 
-                                                   void** ppPlugIn);
-   }
-   ```
+#### **Core Technologies**:
+- **CoreMediaIO Extension Framework** (iOS 17+/macOS 14+)
+- **SystemExtensions Framework** for installation
+- **XPC Services** for secure communication
+- **AVFoundation** for video processing
+- **CoreImage** for GPU-accelerated effects
 
-3. **Register Virtual Camera Device**:
-   ```cpp
-   // Create virtual camera device with Scene It identifier
-   CMIOObjectID deviceID = CreateVirtualCameraDevice();
-   ```
-
-4. **Frame Streaming**: Implement frame delivery from Swift to plugin
-5. **Installation**: Code signing and system installation process
-
-#### Key Files Needed:
-- `SceneItVirtualCamera.cpp` - Main plugin implementation
-- `Info.plist` - Plugin configuration
-- `SceneItDALPlugin.h` - Interface definitions
-- Installation scripts and code signing
-
-### Option 3: Screen Capture + Virtual Camera (Hybrid)
-
-**Pros**: Simpler implementation, uses existing screen capture APIs  
-**Cons**: Performance overhead, not true camera replacement  
-
-#### Implementation:
-```swift
-import ScreenCaptureKit
-
-class ScreenCaptureVirtualCamera {
-    private var stream: SCStream?
-    
-    func startCapture() {
-        let config = SCStreamConfiguration()
-        config.width = 1920
-        config.height = 1080
-        
-        // Create virtual display for our processed video
-        stream = SCStream(filter: filter, configuration: config, delegate: self)
-        stream?.startCapture()
-    }
-}
+#### **Key Files Structure**:
+```
+SceneIt/
+├── SceneIt/                          # Main App
+│   ├── VirtualCameraManager.swift    # Video processing (existing)
+│   ├── CMIOExtensionInstaller.swift  # System extension management
+│   └── XPCCommunicator.swift        # Communication with extension
+└── SceneItCameraExtension/           # System Extension Target
+    ├── CMIOExtensionProvider.swift   # Main extension provider
+    ├── CMIOExtensionDevice.swift     # Virtual camera device
+    ├── CMIOExtensionStream.swift     # Video stream management
+    └── Info.plist                    # Extension configuration
 ```
 
 ## Integration with Scene It

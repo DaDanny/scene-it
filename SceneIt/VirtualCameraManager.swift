@@ -37,9 +37,13 @@ class VirtualCameraManager: NSObject, ObservableObject {
     @Published var isPluginConnected = false
     @Published var frameRate: Double = 0.0
     
-    var captureSession: AVCaptureSession? { return privateCaptureSession }
+    var captureSession: AVCaptureSession? { 
+        // Return active session (either full virtual camera or preview-only)
+        return privateCaptureSession ?? previewSession 
+    }
     
     private var privateCaptureSession: AVCaptureSession?
+    private var previewSession: AVCaptureSession? // Separate session for preview only
     private var videoDeviceInput: AVCaptureDeviceInput?
     private var videoOutput: AVCaptureVideoDataOutput?
     private var virtualCameraOutput: AVCaptureVideoDataOutput?
@@ -79,6 +83,10 @@ class VirtualCameraManager: NSObject, ObservableObject {
         requestCameraAccess { granted in
             if granted {
                 print("✅ Camera permission granted")
+                // Start preview session for immediate preview availability
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.startPreviewSession()
+                }
             } else {
                 print("❌ Camera permission denied")
             }
@@ -99,6 +107,7 @@ class VirtualCameraManager: NSObject, ObservableObject {
     }
     
     deinit {
+        stopPreviewSession()
         ipcBridge.cleanup()
     }
     
@@ -144,6 +153,9 @@ class VirtualCameraManager: NSObject, ObservableObject {
         }
         
         do {
+            // Stop preview session since main session will handle everything
+            stopPreviewSession()
+            
             print("📹 Setting up capture session...")
             try setupCaptureSession()
             print("📹 Starting capture session...")
@@ -163,6 +175,7 @@ class VirtualCameraManager: NSObject, ObservableObject {
     func stopVirtualCamera() {
         guard isActive else { return }
         
+        // Stop the main capture session but keep preview running
         privateCaptureSession?.stopRunning()
         privateCaptureSession = nil
         videoDeviceInput = nil
@@ -172,14 +185,74 @@ class VirtualCameraManager: NSObject, ObservableObject {
         isActive = false
         frameRate = 0.0
         
+        // Start preview-only session for the preview window
+        startPreviewSession()
+        
         NotificationCenter.default.post(name: .virtualCameraStateChanged, object: nil)
-        print("Virtual camera stopped")
+        print("Virtual camera stopped - preview session maintained")
     }
     
     func updateOverlay(_ overlay: Overlay?) {
         currentOverlay = overlay
         // Overlay is applied in real-time in the video processing pipeline
         print("Overlay updated to: \(overlay?.name ?? "None")")
+    }
+    
+    private func startPreviewSession() {
+        print("📹 Starting preview-only session...")
+        
+        // Don't start if we already have a preview session
+        if previewSession != nil {
+            print("📹 Preview session already exists")
+            return
+        }
+        
+        // Make sure we have cameras available
+        if availableCameras.isEmpty {
+            discoverAvailableCameras()
+        }
+        
+        guard !availableCameras.isEmpty else {
+            print("❌ No cameras available for preview")
+            return
+        }
+        
+        do {
+            previewSession = AVCaptureSession()
+            guard let session = previewSession else { return }
+            
+            session.beginConfiguration()
+            
+            // Set a lower quality for preview-only mode
+            if session.canSetSessionPreset(.hd1280x720) {
+                session.sessionPreset = .hd1280x720
+            } else {
+                session.sessionPreset = .vga640x480
+            }
+            
+            // Add video input
+            let videoDevice = selectedCamera ?? availableCameras.first!
+            let videoInput = try AVCaptureDeviceInput(device: videoDevice)
+            
+            if session.canAddInput(videoInput) {
+                session.addInput(videoInput)
+            }
+            
+            session.commitConfiguration()
+            session.startRunning()
+            
+            print("✅ Preview session started successfully")
+            
+        } catch {
+            print("❌ Failed to start preview session: \(error)")
+            previewSession = nil
+        }
+    }
+    
+    func stopPreviewSession() {
+        previewSession?.stopRunning()
+        previewSession = nil
+        print("📹 Preview session stopped")
     }
     
     private func setupVirtualCameraExtensions() {
@@ -644,7 +717,7 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         
         // In a real implementation, this processed frame would be sent to the virtual camera output
         // For now, we'll just log that processing occurred
-        print("Processed frame with overlay: \(currentOverlay?.name ?? "none")")
+        // Frame processed (removed noisy log)
         
         // TODO: Send processed frame to virtual camera device
         // This would require implementing the DAL plugin or virtual camera backend
@@ -725,7 +798,7 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         let discoverySession = AVCaptureDevice.DiscoverySession(
             deviceTypes: [
                 .builtInWideAngleCamera,
-                .externalUnknown,
+                .external,
                 .continuityCamera
             ],
             mediaType: .video,

@@ -16,14 +16,15 @@
 		8D1107360486CEB800E47095 /* StatusBarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107360486CEB800E47005 /* StatusBarMenuView.swift */; };
 		8D1107370486CEB800E47098 /* VideoPreviewWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */; };
 		8D1107380486CEB800E47099 /* VirtualCameraIPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */; };
-8D1107400486CEB800E47200 /* SimpleVirtualCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */; };
-8D1107410486CEB800E47202 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107410486CEB800E47203 /* AppSettings.swift */; };
-8D1107420486CEB800E47204 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107420486CEB800E47205 /* SettingsView.swift */; };
-		8D1107390486CEB800E47100 /* SceneItCMIOExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107390486CEB800E47013 /* SceneItCMIOExtension.swift */; };
-		8D11073A0486CEB800E47101 /* SceneItCMIOProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11073A0486CEB800E47014 /* SceneItCMIOProvider.swift */; };
-		8D11073B0486CEB800E47102 /* CMIOExtensionIPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11073B0486CEB800E47015 /* CMIOExtensionIPC.swift */; };
-		8D11073C0486CEB800E47103 /* CMIOExtensionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11073C0486CEB800E47017 /* CMIOExtensionTypes.swift */; };
-		C99EBCCE2E3B22F200224C7B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99EBCCD2E3B22EE00224C7B /* main.swift */; };
+		8D1107400486CEB800E47200 /* SimpleVirtualCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */; };
+		8D1107410486CEB800E47202 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107410486CEB800E47203 /* AppSettings.swift */; };
+		8D1107420486CEB800E47204 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1107420486CEB800E47205 /* SettingsView.swift */; };
+		C93136402E3C7B1600502BB1 /* OnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363D2E3C7B1600502BB1 /* OnboardingFlow.swift */; };
+		C93136412E3C7B1600502BB1 /* FloatingControlMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363C2E3C7B1600502BB1 /* FloatingControlMenu.swift */; };
+		C93136422E3C7B1600502BB1 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363F2E3C7B1600502BB1 /* WelcomeScreen.swift */; };
+		C93136432E3C7B1600502BB1 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C931363E2E3C7B1600502BB1 /* SplashScreen.swift */; };
+		C93136472E3C7B3600502BB1 /* AppFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93136452E3C7B3600502BB1 /* AppFlowManager.swift */; };
+		C93136482E3C7B3600502BB1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93136442E3C7B3600502BB1 /* App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,22 +33,27 @@
 		8D1107320486CEB800E47001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8D1107320486CEB800E47007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47008 /* SceneIt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SceneIt.entitlements; sourceTree = "<group>"; };
-		8D1107320486CEB800E47016 /* SceneIt-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SceneIt-Development.entitlements"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47009 /* SceneIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47016 /* SceneIt-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SceneIt-Development.entitlements"; sourceTree = "<group>"; };
 		8D1107330486CEB800E47002 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		8D1107340486CEB800E47003 /* VirtualCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraManager.swift; sourceTree = "<group>"; };
 		8D1107350486CEB800E47004 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		8D1107360486CEB800E47005 /* StatusBarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarMenuView.swift; sourceTree = "<group>"; };
 		8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewWindow.swift; sourceTree = "<group>"; };
 		8D1107380486CEB800E47012 /* VirtualCameraIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCameraIPC.swift; sourceTree = "<group>"; };
-8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SimpleVirtualCamera.swift; path = SceneIt/SimpleVirtualCamera.swift; sourceTree = "<group>"; };
-8D1107410486CEB800E47203 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-8D1107420486CEB800E47205 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8D1107390486CEB800E47013 /* SceneItCMIOExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCMIOExtension.swift; sourceTree = "<group>"; };
 		8D11073A0486CEB800E47014 /* SceneItCMIOProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCMIOProvider.swift; sourceTree = "<group>"; };
 		8D11073B0486CEB800E47015 /* CMIOExtensionIPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMIOExtensionIPC.swift; sourceTree = "<group>"; };
 		8D11073C0486CEB800E47017 /* CMIOExtensionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMIOExtensionTypes.swift; sourceTree = "<group>"; };
-		C99EBCCD2E3B22EE00224C7B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SimpleVirtualCamera.swift; path = SceneIt/SimpleVirtualCamera.swift; sourceTree = "<group>"; };
+		8D1107410486CEB800E47203 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		8D1107420486CEB800E47205 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C931363C2E3C7B1600502BB1 /* FloatingControlMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingControlMenu.swift; sourceTree = "<group>"; };
+		C931363D2E3C7B1600502BB1 /* OnboardingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlow.swift; sourceTree = "<group>"; };
+		C931363E2E3C7B1600502BB1 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		C931363F2E3C7B1600502BB1 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
+		C93136442E3C7B3600502BB1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		C93136452E3C7B3600502BB1 /* AppFlowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,7 @@
 			children = (
 				29B97314FDCFA39411CA2CEA /* SceneIt */,
 				29B97316FDCFA39411CA2CEC /* Products */,
+				C931363B2E3C7A9900502BB1 /* Recovered References */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -81,7 +88,8 @@
 		29B97314FDCFA39411CA2CEA /* SceneIt */ = {
 			isa = PBXGroup;
 			children = (
-				C99EBCCD2E3B22EE00224C7B /* main.swift */,
+				C93136442E3C7B3600502BB1 /* App.swift */,
+				C93136462E3C7B3600502BB1 /* Controllers */,
 				8D1107310486CEB800E47000 /* AppDelegate.swift */,
 				8D1107320486CEB800E47001 /* ContentView.swift */,
 				8D1107330486CEB800E47002 /* StatusBarController.swift */,
@@ -107,6 +115,10 @@
 		29B97314FDCFA39411CA2CEC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C931363C2E3C7B1600502BB1 /* FloatingControlMenu.swift */,
+				C931363D2E3C7B1600502BB1 /* OnboardingFlow.swift */,
+				C931363E2E3C7B1600502BB1 /* SplashScreen.swift */,
+				C931363F2E3C7B1600502BB1 /* WelcomeScreen.swift */,
 				8D1107360486CEB800E47005 /* StatusBarMenuView.swift */,
 				8D1107370486CEB800E47011 /* VideoPreviewWindow.swift */,
 				8D1107420486CEB800E47205 /* SettingsView.swift */,
@@ -151,6 +163,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C931363B2E3C7A9900502BB1 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107400486CEB800E47201 /* SimpleVirtualCamera.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		C93136462E3C7B3600502BB1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C93136452E3C7B3600502BB1 /* AppFlowManager.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -180,7 +208,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
-				ORGANIZATIONNAME = "Ritually";
+				ORGANIZATIONNAME = Ritually;
 				TargetAttributes = {
 					8D1107260486CEB800E47080 = {
 						CreatedOnToolsVersion = 16.0;
@@ -223,7 +251,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D1107310486CEB800E47090 /* AppDelegate.swift in Sources */,
-				C99EBCCE2E3B22F200224C7B /* main.swift in Sources */,
+				C93136402E3C7B1600502BB1 /* OnboardingFlow.swift in Sources */,
+				C93136412E3C7B1600502BB1 /* FloatingControlMenu.swift in Sources */,
+				C93136422E3C7B1600502BB1 /* WelcomeScreen.swift in Sources */,
+				C93136432E3C7B1600502BB1 /* SplashScreen.swift in Sources */,
 				8D1107320486CEB800E47091 /* ContentView.swift in Sources */,
 				8D1107330486CEB800E47092 /* StatusBarController.swift in Sources */,
 				8D1107340486CEB800E47093 /* VirtualCameraManager.swift in Sources */,
@@ -234,9 +265,8 @@
 				8D1107400486CEB800E47200 /* SimpleVirtualCamera.swift in Sources */,
 				8D1107410486CEB800E47202 /* AppSettings.swift in Sources */,
 				8D1107420486CEB800E47204 /* SettingsView.swift in Sources */,
-							// CMIOExtension classes temporarily disabled - requires separate system extension target
-			// 8D11073A0486CEB800E47101 /* SceneItCMIOProvider.swift in Sources */,
-			// 8D11073B0486CEB800E47102 /* CMIOExtensionIPC.swift in Sources */,
+				C93136472E3C7B3600502BB1 /* AppFlowManager.swift in Sources */,
+				C93136482E3C7B3600502BB1 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,10 +278,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SceneIt/Resources/SceneIt-Development.entitlements;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
+				CODE_SIGN_ENTITLEMENTS = "SceneIt/Resources/SceneIt-Development.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 378NGS49HA;
@@ -282,10 +312,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SceneIt/Resources/SceneIt-Development.entitlements;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
+				CODE_SIGN_ENTITLEMENTS = "SceneIt/Resources/SceneIt-Development.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 378NGS49HA;

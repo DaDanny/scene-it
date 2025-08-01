@@ -83,6 +83,7 @@ struct VideoPreviewWindow: View {
     
     private var previewAreaView: some View {
         ModernVideoPreviewView(virtualCameraManager: virtualCameraManager)
+            .id(refreshID) // Force refresh when refreshID changes
             .frame(width: isFullscreen ? 1280 : 720, height: isFullscreen ? 720 : 405)
             .background(Color.black)
             .cornerRadius(16)
@@ -99,6 +100,8 @@ struct VideoPreviewWindow: View {
             )
             .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
     }
+    
+    @State private var refreshID = UUID()
     
     private var controlsView: some View {
         HStack(spacing: 20) {
@@ -123,7 +126,16 @@ struct VideoPreviewWindow: View {
             
             // Test Button
             Button("Test with QuickTime") {
-                NSWorkspace.shared.launchApplication("QuickTime Player")
+                if let appURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.QuickTimePlayerX") {
+                    NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
+                }
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
+            
+            // Refresh Preview Button
+            Button("Refresh Preview") {
+                refreshID = UUID()
             }
             .buttonStyle(.bordered)
             .controlSize(.large)
@@ -221,12 +233,20 @@ struct VideoPreviewWindow: View {
 
 struct ModernVideoPreviewView: NSViewRepresentable {
     @ObservedObject var virtualCameraManager: VirtualCameraManager
+    @State private var refreshID = UUID()
     
     func makeNSView(context: Context) -> NSView {
+        print("🎥 VideoPreviewWindow: Creating NSView for camera preview")
+        
         let containerView = NSView()
         containerView.wantsLayer = true
         containerView.layer?.backgroundColor = NSColor.black.cgColor
         containerView.layer?.cornerRadius = 16
+        containerView.layer?.masksToBounds = true
+        
+        // Ensure proper layer configuration
+        containerView.layer?.contentsScale = NSScreen.main?.backingScaleFactor ?? 2.0
+        containerView.layer?.isOpaque = true
         
         // Add subtle inner shadow for depth
         containerView.layer?.shadowColor = NSColor.black.cgColor
@@ -234,60 +254,201 @@ struct ModernVideoPreviewView: NSViewRepresentable {
         containerView.layer?.shadowRadius = 4
         containerView.layer?.shadowOpacity = 0.3
         
-        // Set up preview layer
-        setupPreviewLayer(in: containerView, context: context)
+        print("🎥 VideoPreviewWindow: Container view created with bounds: \(containerView.bounds)")
+        
+        // Don't create preview layer here - wait for proper bounds in updateNSView
         
         return containerView
     }
     
     func updateNSView(_ nsView: NSView, context: Context) {
-        // Update preview layer frame when view size changes
+        // Check if view has valid bounds before creating preview layer
+        let hasValidBounds = nsView.bounds.width > 0 && nsView.bounds.height > 0
+        print("🎥 VideoPreviewWindow: updateNSView - bounds: \(nsView.bounds), valid: \(hasValidBounds)")
+        
+        // Update existing preview layer frame when view size changes
         if let previewLayer = context.coordinator.previewLayer {
-            previewLayer.frame = nsView.bounds
+            if hasValidBounds {
+                previewLayer.frame = nsView.bounds
+                print("🎥 VideoPreviewWindow: Updated preview layer frame to \(nsView.bounds)")
+            }
         }
         
-        // Create preview layer if capture session becomes available
-        if context.coordinator.previewLayer == nil && virtualCameraManager.captureSession != nil {
+        // If virtual camera state changed, refresh the preview
+        if context.coordinator.lastActiveState != virtualCameraManager.isActive {
+            print("🎥 VideoPreviewWindow: Virtual camera state changed to \(virtualCameraManager.isActive)")
+            context.coordinator.lastActiveState = virtualCameraManager.isActive
+            
+            // Only recreate if we don't have a preview layer
+            if context.coordinator.previewLayer == nil && hasValidBounds {
+                print("🎥 VideoPreviewWindow: No existing preview layer, creating new one")
+                setupPreviewLayer(in: nsView, context: context)
+            } else {
+                print("🎥 VideoPreviewWindow: Preview layer exists, updating session reference")
+                // Update the existing layer's session if needed
+                if let newSession = virtualCameraManager.captureSession,
+                   context.coordinator.previewLayer?.session !== newSession {
+                    context.coordinator.previewLayer?.session = newSession
+                    print("🎥 VideoPreviewWindow: Updated preview layer session")
+                }
+            }
+        }
+        
+        // Create preview layer if we have valid bounds, capture session, and no existing layer
+        if context.coordinator.previewLayer == nil && 
+           virtualCameraManager.captureSession != nil && 
+           hasValidBounds {
+            print("🎥 VideoPreviewWindow: Ready to create preview layer - valid bounds and session available")
             setupPreviewLayer(in: nsView, context: context)
+        } else if context.coordinator.previewLayer == nil {
+            print("🎥 VideoPreviewWindow: Not ready for preview layer - bounds: \(hasValidBounds), session: \(virtualCameraManager.captureSession != nil)")
         }
     }
     
     private func setupPreviewLayer(in view: NSView, context: Context) {
+        print("🎥 VideoPreviewWindow: Setting up preview layer...")
+        
+        // Prevent duplicate layer creation
+        if context.coordinator.previewLayer != nil {
+            print("🎥 VideoPreviewWindow: Preview layer already exists, skipping setup")
+            return
+        }
+        
         guard let captureSession = virtualCameraManager.captureSession else {
-            // Show placeholder content
+            print("🎥 VideoPreviewWindow: No capture session available, showing placeholder")
             showPlaceholder(in: view)
             return
         }
         
+        print("🎥 VideoPreviewWindow: Capture session found, creating preview layer")
+        print("🎥 VideoPreviewWindow: Session is running: \(captureSession.isRunning)")
+        print("🎥 VideoPreviewWindow: Session inputs: \(captureSession.inputs.count)")
+        print("🎥 VideoPreviewWindow: Session outputs: \(captureSession.outputs.count)")
+        
+        // Clear any existing sublayers first
+        view.layer?.sublayers?.removeAll()
+        
+        // Ensure the view is layer-backed and configured properly
+        view.wantsLayer = true
+        view.layer?.masksToBounds = false
+        
+        print("🎥 VideoPreviewWindow: View bounds: \(view.bounds)")
+        print("🎥 VideoPreviewWindow: View layer: \(view.layer != nil)")
+        
+        // Ensure we have valid bounds before creating the layer
+        guard view.bounds.width > 0 && view.bounds.height > 0 else {
+            print("🎥 VideoPreviewWindow: Invalid view bounds \(view.bounds), cannot create preview layer")
+            return
+        }
+        
+        // Create preview layer with more specific configuration
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = .resizeAspect
+        previewLayer.videoGravity = .resizeAspect  // Back to aspect to see full frame
         previewLayer.frame = view.bounds
         previewLayer.cornerRadius = 16
         
-        // Add smooth animation when adding layer
-        let fadeIn = CABasicAnimation(keyPath: "opacity")
-        fadeIn.fromValue = 0.0
-        fadeIn.toValue = 1.0
-        fadeIn.duration = 0.3
-        previewLayer.add(fadeIn, forKey: "fadeIn")
+        // More specific layer configuration
+        previewLayer.backgroundColor = NSColor.clear.cgColor  // Try clear background
+        previewLayer.opacity = 1.0
+        previewLayer.isHidden = false
+        previewLayer.masksToBounds = true
+        previewLayer.contentsScale = NSScreen.main?.backingScaleFactor ?? 2.0
         
-        view.layer?.addSublayer(previewLayer)
+        // Try forcing the connection orientation
+        if let connection = previewLayer.connection {
+            print("🎥 VideoPreviewWindow: Found preview connection: \(connection)")
+            print("🎥 VideoPreviewWindow: Connection enabled: \(connection.isEnabled)")
+            print("🎥 VideoPreviewWindow: Connection active: \(connection.isActive)")
+            
+            if connection.isVideoOrientationSupported {
+                connection.videoOrientation = .landscapeLeft
+                print("🎥 VideoPreviewWindow: Set video orientation to landscapeLeft")
+            } else {
+                print("🎥 VideoPreviewWindow: Video orientation not supported")
+            }
+        } else {
+            print("🎥 VideoPreviewWindow: NO PREVIEW CONNECTION - This might be the issue!")
+        }
+        
+        print("🎥 VideoPreviewWindow: Preview layer frame: \(previewLayer.frame)")
+        print("🎥 VideoPreviewWindow: Preview layer bounds: \(previewLayer.bounds)")
+        
+        // Store the layer BEFORE adding to prevent duplicates
         context.coordinator.previewLayer = previewLayer
+        
+        // Add layer to view immediately (no async)
+        view.layer?.addSublayer(previewLayer)
+        
+        // Force layer updates
+        previewLayer.setNeedsDisplay()
+        view.layer?.setNeedsDisplay()
+        view.needsDisplay = true
+        
+        print("🎥 VideoPreviewWindow: Preview layer added to view hierarchy")
+        print("🎥 VideoPreviewWindow: View sublayers count: \(view.layer?.sublayers?.count ?? 0)")
+        
+        // Additional debugging for video content
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            print("🎥 VideoPreviewWindow: Delayed check - layer bounds: \(previewLayer.bounds)")
+            print("🎥 VideoPreviewWindow: Delayed check - layer frame: \(previewLayer.frame)")
+            print("🎥 VideoPreviewWindow: Delayed check - session running: \(captureSession.isRunning)")
+            print("🎥 VideoPreviewWindow: Delayed check - layer contents: \(previewLayer.contents != nil)")
+            print("🎥 VideoPreviewWindow: Delayed check - layer hidden: \(previewLayer.isHidden)")
+            print("🎥 VideoPreviewWindow: Delayed check - layer opacity: \(previewLayer.opacity)")
+            print("🎥 VideoPreviewWindow: Delayed check - layer in hierarchy: \(previewLayer.superlayer != nil)")
+            print("🎥 VideoPreviewWindow: Delayed check - session inputs: \(captureSession.inputs.count)")
+            print("🎥 VideoPreviewWindow: Delayed check - session outputs: \(captureSession.outputs.count)")
+            
+            // Check if layer connection exists
+            if let connection = previewLayer.connection {
+                print("🎥 VideoPreviewWindow: Delayed check - connection enabled: \(connection.isEnabled)")
+                print("🎥 VideoPreviewWindow: Delayed check - connection active: \(connection.isActive)")
+                print("🎥 VideoPreviewWindow: Delayed check - connection video orientation: \(connection.videoOrientation.rawValue)")
+            } else {
+                print("🎥 VideoPreviewWindow: Delayed check - NO CONNECTION FOUND!")
+            }
+            
+            // Try to force a redraw
+            previewLayer.setNeedsLayout()
+            previewLayer.layoutIfNeeded()
+            previewLayer.setNeedsDisplay()
+        }
+        
+        print("🎥 VideoPreviewWindow: Preview layer setup complete")
     }
     
     private func showPlaceholder(in view: NSView) {
+        print("🎥 VideoPreviewWindow: Showing placeholder content")
+        
+        // Clear any existing sublayers
+        view.layer?.sublayers?.removeAll()
+        
+        // Create a background layer
+        let backgroundLayer = CALayer()
+        backgroundLayer.backgroundColor = NSColor.controlBackgroundColor.cgColor
+        backgroundLayer.frame = view.bounds
+        backgroundLayer.cornerRadius = 16
+        view.layer?.addSublayer(backgroundLayer)
+        
         // Create a placeholder view with modern styling
         let placeholderLayer = CATextLayer()
-        placeholderLayer.string = "Camera Preview\nConnect a camera to see live preview"
+        placeholderLayer.string = "Camera Preview\nConnect a camera to see live preview\n\nVirtual Camera Status: \(virtualCameraManager.isActive ? "Active" : "Inactive")"
         placeholderLayer.font = NSFont.systemFont(ofSize: 16, weight: .medium)
         placeholderLayer.fontSize = 16
-        placeholderLayer.foregroundColor = NSColor.secondaryLabelColor.cgColor
+        placeholderLayer.foregroundColor = NSColor.labelColor.cgColor
         placeholderLayer.alignmentMode = .center
         placeholderLayer.isWrapped = true
-        placeholderLayer.frame = view.bounds
+        placeholderLayer.frame = CGRect(
+            x: 20,
+            y: view.bounds.height / 2 - 60,
+            width: view.bounds.width - 40,
+            height: 120
+        )
         placeholderLayer.contentsScale = view.layer?.contentsScale ?? 2.0
         
         view.layer?.addSublayer(placeholderLayer)
+        
+        print("🎥 VideoPreviewWindow: Placeholder added to view")
     }
     
     func makeCoordinator() -> Coordinator {
@@ -296,6 +457,7 @@ struct ModernVideoPreviewView: NSViewRepresentable {
     
     class Coordinator {
         var previewLayer: AVCaptureVideoPreviewLayer?
+        var lastActiveState: Bool = false
     }
 }
 
@@ -321,11 +483,15 @@ class VideoPreviewWindowController: NSWindowController {
         window.title = "Ritually - Video Preview"
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = true
-        window.center()
-        window.setFrameAutosaveName("SceneItPreviewWindow")
         
-        // Set minimum size
+        // Set minimum size first
         window.minSize = NSSize(width: 600, height: 500)
+        
+        // Safe window positioning with frame validation
+        setupWindowPosition(window)
+        
+        // Use autosave name with validation
+        setupFrameAutosave(window)
         
         // Set up SwiftUI content with modern styling
         let contentView = VideoPreviewWindow(virtualCameraManager: virtualCameraManager)
@@ -346,6 +512,94 @@ class VideoPreviewWindowController: NSWindowController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupWindowPosition(_ window: NSWindow) {
+        // Get the main screen bounds
+        guard let mainScreen = NSScreen.main else {
+            window.center()
+            return
+        }
+        
+        let screenFrame = mainScreen.visibleFrame
+        let windowSize = window.frame.size
+        
+        // Calculate centered position
+        let x = screenFrame.origin.x + (screenFrame.width - windowSize.width) / 2
+        let y = screenFrame.origin.y + (screenFrame.height - windowSize.height) / 2
+        
+        let centeredFrame = NSRect(
+            x: x,
+            y: y,
+            width: windowSize.width,
+            height: windowSize.height
+        )
+        
+        // Ensure the frame is within screen bounds
+        let constrainedFrame = constrainFrameToScreen(centeredFrame, screen: mainScreen)
+        window.setFrame(constrainedFrame, display: false)
+        
+        print("🪟 VideoPreviewWindow: Positioned at \(constrainedFrame)")
+    }
+    
+    private func setupFrameAutosave(_ window: NSWindow) {
+        // Set autosave name for future sessions
+        window.setFrameAutosaveName("RituallyPreviewWindow")
+        
+        // If there's a saved frame, validate it before using
+        if let savedFrameString = UserDefaults.standard.string(forKey: "NSWindow Frame RituallyPreviewWindow") {
+            print("🪟 VideoPreviewWindow: Found saved frame: \(savedFrameString)")
+            
+            // Try to parse and validate the saved frame
+            let savedFrame = NSRectFromString(savedFrameString)
+            if isFrameValid(savedFrame) {
+                window.setFrame(savedFrame, display: false)
+                print("🪟 VideoPreviewWindow: Restored to saved frame")
+            } else {
+                print("🪟 VideoPreviewWindow: Saved frame invalid, keeping centered position")
+                // Clear invalid saved frame
+                UserDefaults.standard.removeObject(forKey: "NSWindow Frame RituallyPreviewWindow")
+            }
+        }
+    }
+    
+    private func constrainFrameToScreen(_ frame: NSRect, screen: NSScreen) -> NSRect {
+        let screenFrame = screen.visibleFrame
+        var constrainedFrame = frame
+        
+        // Ensure window is not larger than screen
+        constrainedFrame.size.width = min(constrainedFrame.width, screenFrame.width - 40)
+        constrainedFrame.size.height = min(constrainedFrame.height, screenFrame.height - 40)
+        
+        // Ensure window is within screen bounds
+        if constrainedFrame.maxX > screenFrame.maxX {
+            constrainedFrame.origin.x = screenFrame.maxX - constrainedFrame.width
+        }
+        if constrainedFrame.minX < screenFrame.minX {
+            constrainedFrame.origin.x = screenFrame.minX
+        }
+        if constrainedFrame.maxY > screenFrame.maxY {
+            constrainedFrame.origin.y = screenFrame.maxY - constrainedFrame.height
+        }
+        if constrainedFrame.minY < screenFrame.minY {
+            constrainedFrame.origin.y = screenFrame.minY
+        }
+        
+        return constrainedFrame
+    }
+    
+    private func isFrameValid(_ frame: NSRect) -> Bool {
+        // Check if frame has valid dimensions
+        guard frame.width > 0 && frame.height > 0 else { return false }
+        
+        // Check if frame intersects with any available screen
+        for screen in NSScreen.screens {
+            if screen.visibleFrame.intersects(frame) {
+                return true
+            }
+        }
+        
+        return false
     }
 }
 

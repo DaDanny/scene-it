@@ -106,4 +106,4 @@ class CMIOExtensionPropertyValue: NSObject {
 }
 
 // Extension-specific types
-typealias CMIOExtensionStreamID = UUID
+// Note: CMIOExtensionStreamID = UUID can be defined locally where needed
