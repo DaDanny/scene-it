@@ -38,9 +38,10 @@ xcodebuild -project SceneIt.xcodeproj -scheme SceneIt -configuration Debug build
 - `AppFlowManager`: Coordinates app state transitions and window management
 
 **Core Managers**:
-- `VirtualCameraManager`: Handles camera capture, overlay processing, and virtual camera output
-- `StatusBarController`: Manages menu bar presence, user interactions, and UI popover
-- `OverlayManager`: Manages available overlays and overlay application logic
+- `VirtualCameraManager`: Handles camera capture, overlay processing, and XPC communication with system extension
+- `StatusBarController`: Manages menu bar presence, user interactions, and UI popover  
+- `CMIOExtensionInstaller`: Manages system extension installation and lifecycle
+- `XPCFrameTransmitter`: Handles communication with CoreMediaIO system extension
 
 **UI Components**:
 - `StatusBarMenuView.swift`: SwiftUI-based menu interface
@@ -102,10 +103,12 @@ Physical Camera → AVCaptureSession → Core Image Processing → Overlay Appli
 ## Important Implementation Details
 
 ### Virtual Camera Backend
-- **Current Status**: Video processing pipeline complete, virtual camera device creation in development
-- **Implementation Guide**: See `docs/COREMEDIAIO_EXTENSION_GUIDE.md` for comprehensive implementation roadmap  
-- **Approach**: Native CoreMediaIO Extension Framework with System Extensions
+- **Current Status**: XPC communication system and CMIO extension implementation complete, requires Xcode system extension target setup
+- **Implementation Guide**: See `docs/COREMEDIAIO_EXTENSION_GUIDE.md` for comprehensive implementation roadmap
+- **Setup Guide**: See `SYSTEM_EXTENSION_SETUP.md` for Xcode project configuration
+- **Approach**: Native CoreMediaIO Extension Framework with System Extensions and XPC communication
 - **Frame Processing**: Complete Core Image pipeline with GPU-accelerated overlay rendering
+- **Communication**: XPC-based secure inter-process communication between main app and system extension
 
 ### App Lifecycle
 - Launches with splash screen, then hides main window

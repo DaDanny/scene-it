@@ -1,0 +1,186 @@
+project: SceneIt Virtual Camera
+target_platform: macOS 14+
+goal: Implement a native, DMG-installable macOS virtual camera using CoreMediaIO with overlay support, system extension, and XPC communication.
+
+phases:
+  - name: Foundation
+    duration_weeks: 2
+    tasks:
+      - add_system_extension_target:
+          target_name: SceneItCameraExtension
+          deployment_target: macOS 14.0
+          bundle_ids:
+            app: com.ritually.SceneIt
+            extension: com.ritually.SceneIt.CameraExtension
+      - configure_extension_plist:
+          NSExtension:
+            NSExtensionPointIdentifier: com.apple.cmio-dal-assistant.extension
+            NSExtensionPrincipalClass: SceneItCMIOExtensionProvider
+      - configure_extension_entitlements:
+          com.apple.developer.cmio.extension: true
+          com.apple.security.app-sandbox: true
+      - cleanup_placeholders:
+          - remove_file: SimpleVirtualCamera.swift
+          - replace_file: CMIOExtensionTypes.swift with real CMIO classes
+      - refactor_ipc:
+          from: CMIOExtensionIPC.swift
+          to: XPC-based communication
+      - update_virtual_camera_manager_for_xpc: true
+      - create_core_extension_classes:
+          - SceneItCMIOExtensionProvider.swift
+          - SceneItCMIODevice.swift
+          - SceneItCMIOStream.swift
+
+  - name: Core Functionality
+    duration_weeks: 2
+    tasks:
+      - implement_xpc_protocol:
+          methods:
+            - sendVideoFrame(data:width:height:completion)
+            - updateStreamState(isActive:)
+            - sendSplashScreen(imageData:)
+      - implement_xpc_client:
+          file: XPCFrameTransmitter.swift
+      - implement_xpc_service:
+          file: XPCFrameReceiver.swift
+      - configure_device_properties:
+          name: Ritually Virtual Camera
+          manufacturer: Ritually
+          model: Virtual Camera v2.0
+          formats:
+            - width: 1920
+              height: 1080
+              frameRate: 30
+              pixelFormat: kCVPixelFormatType_32BGRA
+            - width: 1280
+              height: 720
+              frameRate: 30
+              pixelFormat: kCVPixelFormatType_32BGRA
+      - implement_device_discovery:
+          method: availableStreamConfigurations()
+      - integrate_frame_pipeline:
+          file: VirtualCameraManager.swift
+          method: sendToVirtualCamera(pixelBuffer:originalSampleBuffer:)
+      - overlay_system_enhancement:
+          - design_presets: 4 professional overlays
+          - implement_overlay_preview
+          - implement_overlay_hot_swap
+          - overlay_selection_ui:
+              file: StatusBarMenuView.swift
+      - overlay_import_export_support: true
+
+  - name: System Integration
+    duration_weeks: 2
+    tasks:
+      - implement_extension_installer:
+          file: CMIOExtensionInstaller.swift
+          class: OSSystemExtensionRequestDelegate
+      - installation_ui_flow:
+          - guide_user_for_approval
+          - handle_errors_and_retry
+      - permission_management:
+          - maintain_camera_permission_flow: true
+          - show_security_settings_help: true
+      - error_handling:
+          - implement_xpc_reconnect_logic
+          - monitor_extension_lifecycle
+
+  - name: Performance Optimization
+    duration_weeks: 2
+    tasks:
+      - implement_frame_buffer_pool:
+          class: FrameBufferPool
+      - optimize_xpc:
+          - frame_serialization: efficient
+          - shared_memory: enable
+      - performance_monitoring:
+          - track_frame_rate: true
+          - monitor_memory_usage: true
+          - extension_health_check: true
+      - splash_screen_integration:
+          - fallback_when_inactive: true
+          - branded_fallback: true
+
+  - name: Distribution
+    duration_weeks: 2
+    tasks:
+      - code_signing_and_notarization:
+          steps:
+            - codesign_main_app
+            - codesign_system_extension
+            - build_installer_pkg
+            - notarize_with_notarytool
+      - dmg_creation:
+          - create_dmg_with_branding: true
+          - drag_to_applications_ui: true
+      - installation_testing:
+          - test_on_clean_macos_14: true
+          - verify_install_success: true
+          - verify_uninstall_cleanup: true
+      - compatibility_validation:
+          apps:
+            - Zoom
+            - Google Meet
+            - Microsoft Teams
+            - FaceTime
+            - Discord
+            - Slack
+          requirements:
+            - min_fps: 30
+            - max_memory_mb: 100
+            - stability: long_call_sessions
+            - graceful_cleanup: true
+
+success_criteria:
+  technical:
+    - virtual_camera_detected_systemwide: true
+    - supports_zoom_meet_teams_facetime_slack_discord: true
+    - stable_30fps_with_overlays: true
+    - memory_usage_under_100mb: true
+    - safe_camera_switching: true
+    - clean_install_uninstall: true
+  user_experience:
+    - one_click_dmg_install: true
+    - extension_install_approval_ui: true
+    - zero_post_install_configuration: true
+    - professional_ui_and_messaging: true
+    - error_guidance: true
+    - live_in-call_support: true
+  overlays:
+    - professional_overlay_output: true
+    - easy_overlay_switching_ui: true
+    - hot_swappable_overlays: true
+    - real_time_application: true
+    - support_overlay_previews: true
+  distribution:
+    - properly_signed_and_notarized: true
+    - compatible_with_macos_14_plus: true
+    - install_success_rate_above_95: true
+    - professional_dmg_and_docs: true
+
+final_file_structure:
+  SceneIt.xcodeproj:
+    SceneIt/:
+      - App.swift
+      - VirtualCameraManager.swift
+      - CMIOExtensionInstaller.swift
+      - XPCFrameTransmitter.swift
+      - StatusBarController.swift
+      - Models/
+        - AppSettings.swift
+        - Overlay.swift
+      - Views/
+        - StatusBarMenuView.swift
+        - VideoPreviewWindow.swift
+        - SettingsView.swift
+      - Resources/
+        - Assets.xcassets/
+        - Info.plist
+        - SceneIt.entitlements
+    SceneItCameraExtension/:
+      - SceneItCMIOExtensionProvider.swift
+      - SceneItCMIODevice.swift
+      - SceneItCMIOStream.swift
+      - XPCFrameReceiver.swift
+      - Info.plist
+      - SceneItCameraExtension.entitlements

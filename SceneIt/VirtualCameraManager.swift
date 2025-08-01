@@ -56,8 +56,9 @@ class VirtualCameraManager: NSObject, ObservableObject {
     private var splashImage: CIImage?
     private var videoSize = CGSize(width: 1920, height: 1080)
     
-    // IPC Bridge (simplified for immediate functionality)
-    private let ipcBridge = VirtualCameraIPC()
+    // XPC Communication for System Extension
+    private let xpcTransmitter = XPCFrameTransmitter()
+    private let extensionInstaller = CMIOExtensionInstaller()
     
     // Performance monitoring
     private var frameCount: Int = 0
@@ -92,23 +93,27 @@ class VirtualCameraManager: NSObject, ObservableObject {
             }
         }
         
-        // Initialize IPC bridge
-        if ipcBridge.initialize() {
-            print("✅ IPC bridge initialized")
-            checkPluginConnection()
-        } else {
-            print("❌ Failed to initialize IPC bridge")
+        // Initialize XPC communication with system extension
+        xpcTransmitter.connect()
+        
+        // Monitor extension status
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            self?.checkExtensionConnection()
         }
         
-        // Monitor plugin connection status
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
-            self?.checkPluginConnection()
-        }
+        // Listen for extension status changes
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleExtensionStatusChange),
+            name: .systemExtensionStatusChanged,
+            object: nil
+        )
     }
     
     deinit {
         stopPreviewSession()
-        ipcBridge.cleanup()
+        xpcTransmitter.disconnect()
+        NotificationCenter.default.removeObserver(self)
     }
     
     func requestCameraAccess(completion: @escaping (Bool) -> Void) {
@@ -144,10 +149,13 @@ class VirtualCameraManager: NSObject, ObservableObject {
             }
         }
         
-        // TODO: Register virtual camera device with native CMIO Extension
-        print("📹 Virtual camera device registration needed...")
-        print("⚠️ Native CMIO Extension not yet implemented - virtual camera won't appear in video apps")
-        // This will be replaced with proper CMIOExtensionManager registration
+        // Check system extension status and install if needed
+        if !extensionInstaller.isExtensionReady() {
+            print("📹 System extension not ready, attempting installation...")
+            extensionInstaller.installExtension()
+            errorMessage = "Installing virtual camera extension. Please approve in System Preferences if prompted."
+            return
+        }
         
         do {
             // Stop preview session since main session will handle everything
@@ -157,6 +165,17 @@ class VirtualCameraManager: NSObject, ObservableObject {
             try setupCaptureSession()
             print("📹 Starting capture session...")
             captureSession?.startRunning()
+            // Set video format in extension
+            xpcTransmitter.setVideoFormat(
+                width: Int(videoSize.width),
+                height: Int(videoSize.height),
+                frameRate: 30.0
+            ) { [weak self] success in
+                if success {
+                    self?.xpcTransmitter.updateStreamState(isActive: true)
+                }
+            }
+            
             isActive = true
             errorMessage = nil
             print("✅ Virtual camera started successfully with session: \(captureSession != nil)")
@@ -181,6 +200,9 @@ class VirtualCameraManager: NSObject, ObservableObject {
         
         isActive = false
         frameRate = 0.0
+        
+        // Notify extension that stream is inactive
+        xpcTransmitter.updateStreamState(isActive: false)
         
         // Start preview-only session for the preview window
         startPreviewSession()
@@ -722,16 +744,14 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
     }
     
     private func sendToVirtualCamera(pixelBuffer: CVPixelBuffer, originalSampleBuffer: CMSampleBuffer) {
-        // Send frame to DAL plugin via IPC
-        let success = ipcBridge.sendFrame(pixelBuffer)
-        
-        if success {
-            // Update frame rate statistics
-            updateFrameRate()
-        } else {
-            // Handle failed frame send
-            if isPluginConnected {
-                print("⚠️ Failed to send frame to plugin (buffer full?)")
+        // Send frame to system extension via XPC
+        xpcTransmitter.sendFrame(pixelBuffer) { [weak self] success in
+            if success {
+                // Update frame rate statistics
+                self?.updateFrameRate()
+            } else {
+                // Handle failed frame send
+                print("⚠️ Failed to send frame to system extension")
             }
         }
     }
@@ -782,10 +802,11 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         // Send to virtual camera
         print("Outputting splash screen to virtual camera")
         
-        // Send splash screen to virtual camera via IPC
-        let success = ipcBridge.sendFrame(buffer)
-        if !success {
-            print("Failed to send splash screen to virtual camera")
+        // Send splash screen to virtual camera via XPC
+        xpcTransmitter.sendSplashScreen(buffer) { success in
+            if !success {
+                print("Failed to send splash screen to virtual camera")
+            }
         }
     }
     
@@ -840,19 +861,43 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         discoverAvailableCameras()
     }
     
-    // MARK: - Plugin Connection Management
+    // MARK: - Extension Connection Management
     
-    private func checkPluginConnection() {
+    private func checkExtensionConnection() {
         let wasConnected = isPluginConnected
-        isPluginConnected = ipcBridge.isPluginConnected()
+        isPluginConnected = xpcTransmitter.getConnectionStatus()
         
         if wasConnected != isPluginConnected {
             DispatchQueue.main.async {
                 if self.isPluginConnected {
-                    print("✅ Virtual camera plugin connected")
+                    print("✅ Virtual camera extension connected")
                 } else {
-                    print("❌ Virtual camera plugin disconnected")
+                    print("❌ Virtual camera extension disconnected")
                 }
+            }
+        }
+    }
+    
+    @objc private func handleExtensionStatusChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let statusString = userInfo["status"] as? String,
+              let status = SystemExtensionStatus(rawValue: statusString) else {
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            switch status {
+            case .active:
+                print("✅ System extension is now active")
+                self?.xpcTransmitter.connect()
+            case .error, .inactive:
+                print("❌ System extension error or inactive")
+                self?.isPluginConnected = false
+            case .needsApproval:
+                print("⚠️ System extension needs user approval")
+                self?.errorMessage = "Please approve the virtual camera extension in System Preferences > Privacy & Security"
+            default:
+                break
             }
         }
     }
@@ -873,27 +918,15 @@ extension VirtualCameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
     
-    // MARK: - Public Interface for Plugin Management
+    // MARK: - Public Interface for Extension Management
     
-    /// Install the virtual camera plugin
-    func installPlugin() -> Bool {
-        // This would run the plugin installation process
-        let process = Process()
-        process.launchPath = "/usr/bin/make"
-        process.arguments = ["-C", "SceneItVirtualCamera.plugin/Contents/Resources", "install"]
-        
-        do {
-            try process.run()
-            process.waitUntilExit()
-            return process.terminationStatus == 0
-        } catch {
-            print("Failed to install plugin: \(error)")
-            return false
-        }
+    /// Get XPC connection status for debugging
+    func getXPCStatus() -> (framesSent: Int, isConnected: Bool, retryCount: Int) {
+        return xpcTransmitter.getPerformanceInfo()
     }
     
-    /// Get IPC buffer status for debugging
-    func getIPCStatus() -> (writeIndex: UInt32, readIndex: UInt32, frameCount: UInt32) {
-        return ipcBridge.getBufferStatus()
+    /// Get system extension installer reference
+    func getExtensionInstaller() -> CMIOExtensionInstaller {
+        return extensionInstaller
     }
 }
