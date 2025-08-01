@@ -302,9 +302,11 @@ struct ModernVideoPreviewView: NSViewRepresentable {
 // Preview window controller with modern styling
 class VideoPreviewWindowController: NSWindowController {
     private var virtualCameraManager: VirtualCameraManager
+    weak var statusBarController: StatusBarController?
     
-    init(virtualCameraManager: VirtualCameraManager) {
+    init(virtualCameraManager: VirtualCameraManager, statusBarController: StatusBarController? = nil) {
         self.virtualCameraManager = virtualCameraManager
+        self.statusBarController = statusBarController
         
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 800, height: 650),
@@ -350,5 +352,7 @@ class VideoPreviewWindowController: NSWindowController {
 extension VideoPreviewWindowController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         print("Preview window closing")
+        // Notify the status bar controller to clean up the reference
+        statusBarController?.previewWindowDidClose()
     }
 }

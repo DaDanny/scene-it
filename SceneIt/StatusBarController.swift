@@ -117,10 +117,16 @@ class StatusBarController: ObservableObject {
             }
         } else {
             // Create new preview window
-            previewWindowController = VideoPreviewWindowController(virtualCameraManager: virtualCameraManager)
+            previewWindowController = VideoPreviewWindowController(virtualCameraManager: virtualCameraManager, statusBarController: self)
             previewWindowController?.showWindow(nil)
         }
         // SwiftUI will automatically update the UI through @Published properties
+    }
+    
+    // Called by VideoPreviewWindowController when window is closing
+    func previewWindowDidClose() {
+        print("🪟 Preview window closed, cleaning up reference")
+        previewWindowController = nil
     }
     
     func installPlugin() {
