@@ -28,7 +28,27 @@ class CMIOExtensionInstaller: NSObject, ObservableObject {
             return
         }
         
-        logger.info("Starting system extension installation...")
+        logger.info("🚀 Starting system extension installation...")
+        logger.info("📋 Extension identifier: \(self.extensionIdentifier)")
+        logger.info("📍 App bundle path: \(Bundle.main.bundlePath)")
+        logger.info("🔍 System extensions path: \(Bundle.main.bundlePath)/Contents/Library/SystemExtensions")
+        
+        // Check if extension bundle exists
+        let extensionPath = Bundle.main.bundlePath + "/Contents/Library/SystemExtensions/sceneitcameraextension.systemextension"
+        let extensionExists = FileManager.default.fileExists(atPath: extensionPath)
+        logger.info("📦 Extension bundle exists at path: \(extensionExists) - \(extensionPath)")
+        
+        if extensionExists {
+            let extensionInfoPath = extensionPath + "/Contents/Info.plist"
+            if let extensionInfo = NSDictionary(contentsOfFile: extensionInfoPath) {
+                logger.info("📋 Extension bundle ID: \(extensionInfo["CFBundleIdentifier"] as? String ?? "unknown")")
+                logger.info("📋 Extension mach service: \(extensionInfo["CMIOExtensionMachServiceName"] as? String ?? "unknown")")
+                if let nsExtension = extensionInfo["NSExtension"] as? NSDictionary {
+                    logger.info("📋 Extension principal class: \(nsExtension["NSExtensionPrincipalClass"] as? String ?? "unknown")")
+                }
+            }
+        }
+        
         isInstalling = true
         status = .installing
         statusMessage = "Installing virtual camera extension..."
@@ -40,6 +60,7 @@ class CMIOExtensionInstaller: NSObject, ObservableObject {
         request.delegate = self
         currentRequest = request
         
+        logger.info("📤 Submitting activation request to OSSystemExtensionManager...")
         OSSystemExtensionManager.shared.submitRequest(request)
     }
     
@@ -108,7 +129,7 @@ class CMIOExtensionInstaller: NSObject, ObservableObject {
     }
     
     private func handleInstallationFailure(_ error: Error) {
-        logger.error("❌ System extension installation failed: \(error.localizedDescription)")
+        logger.error("❌ System extension installation failed: \(error.localizedDescription, privacy: .public)")
         
         let errorMessage: String
         if let systemExtensionError = error as? OSSystemExtensionError {
@@ -128,8 +149,6 @@ class CMIOExtensionInstaller: NSObject, ObservableObject {
             return "Missing required entitlements"
         case .unsupportedParentBundleLocation:
             return "App must be in /Applications folder"
-        case .extensionNotFound:
-            return "Extension binary not found"
         case .authorizationRequired:
             return "User authorization required in System Preferences"
         case .requestCanceled:
@@ -138,6 +157,8 @@ class CMIOExtensionInstaller: NSObject, ObservableObject {
             return "Installation request was superseded"
         case .validationFailed:
             return "Extension validation failed"
+        case .unknown:
+            return "Unknown system extension error"
         @unknown default:
             return "Unknown system extension error: \(error.localizedDescription)"
         }
@@ -209,24 +230,32 @@ class CMIOExtensionInstaller: NSObject, ObservableObject {
 extension CMIOExtensionInstaller: OSSystemExtensionRequestDelegate {
     
     func request(_ request: OSSystemExtensionRequest, actionForReplacingExtension existing: OSSystemExtensionProperties, withExtension ext: OSSystemExtensionProperties) -> OSSystemExtensionRequest.ReplacementAction {
-        logger.info("System extension replacement requested")
+        logger.info("🔄 System extension replacement requested")
+        logger.info("📋 Existing extension: \(existing.bundleIdentifier) v\(existing.bundleVersion)")
+        logger.info("📋 New extension: \(ext.bundleIdentifier) v\(ext.bundleVersion)")
         return .replace
     }
     
     func requestNeedsUserApproval(_ request: OSSystemExtensionRequest) {
-        logger.warning("System extension needs user approval")
+        logger.warning("⚠️ System extension needs user approval")
+        logger.info("📋 Request identifier: \(request.identifier)")
+        logger.info("🔍 User should check System Settings > Privacy & Security")
         updateStatus(.needsApproval, message: "Approval required in System Preferences")
     }
     
     func request(_ request: OSSystemExtensionRequest, didFinishWithResult result: OSSystemExtensionRequest.Result) {
-        logger.info("System extension request completed with result: \(result.rawValue)")
+        logger.info("✅ System extension request completed with result: \(result.rawValue)")
+        logger.info("📋 Request identifier: \(request.identifier)")
         
         switch result {
         case .completed:
+            logger.info("🎉 Extension activation completed successfully")
             handleInstallationSuccess()
         case .willCompleteAfterReboot:
+            logger.info("🔄 Extension will activate after restart")
             updateStatus(.needsApproval, message: "Extension will activate after restart")
         @unknown default:
+            logger.error("❓ Unknown installation result: \(result.rawValue)")
             updateStatus(.error, message: "Unknown installation result")
         }
         
@@ -234,7 +263,15 @@ extension CMIOExtensionInstaller: OSSystemExtensionRequestDelegate {
     }
     
     func request(_ request: OSSystemExtensionRequest, didFailWithError error: Error) {
-        logger.error("System extension request failed: \(error.localizedDescription)")
+        logger.error("❌ System extension request failed: \(error.localizedDescription)")
+        logger.error("📋 Request identifier: \(request.identifier)")
+        logger.error("🔍 Error domain: \(error.localizedDescription)")
+        
+        if let nsError = error as NSError? {
+            logger.error("🔍 Error code: \(nsError.code)")
+            logger.error("🔍 Error userInfo: \(nsError.userInfo)")
+        }
+        
         handleInstallationFailure(error)
         currentRequest = nil
     }

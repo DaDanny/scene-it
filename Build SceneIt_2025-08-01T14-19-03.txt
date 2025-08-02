@@ -1,0 +1,23 @@
+
+Showing Recent Issues
+
+Build target SceneIt of project SceneIt with configuration Debug
+
+CodeSign /Users/dannyfrancken/Library/Developer/Xcode/DerivedData/SceneIt-bhdaanoydcqwhaaolwxruajxxvxm/Build/Products/Debug/SceneIt.app (in target 'SceneIt' from project 'SceneIt')
+    cd /Users/dannyfrancken/Personal/devbydanny/scene-it
+    
+    Signing Identity:     "Apple Development: Danny Francken (CQP9U3MV57)"
+    Provisioning Profile: "SceneIt Development"
+                          (fbc311b5-46be-439d-9abb-9bb587e8ddc9)
+    
+    /usr/bin/codesign --force --sign 49683E812AFBA74EB9F514E5C2791A11B8CD7435 -o runtime --entitlements /Users/dannyfrancken/Library/Developer/Xcode/DerivedData/SceneIt-bhdaanoydcqwhaaolwxruajxxvxm/Build/Intermediates.noindex/SceneIt.build/Debug/SceneIt.build/SceneIt.app.xcent --timestamp\=none --generate-entitlement-der /Users/dannyfrancken/Library/Developer/Xcode/DerivedData/SceneIt-bhdaanoydcqwhaaolwxruajxxvxm/Build/Products/Debug/SceneIt.app
+
+/Users/dannyfrancken/Library/Developer/Xcode/DerivedData/SceneIt-bhdaanoydcqwhaaolwxruajxxvxm/Build/Products/Debug/SceneIt.app: replacing existing signature
+/Users/dannyfrancken/Library/Developer/Xcode/DerivedData/SceneIt-bhdaanoydcqwhaaolwxruajxxvxm/Build/Products/Debug/SceneIt.app: unsealed contents present in the bundle root
+Command CodeSign failed with a nonzero exit code
+
+Command CodeSign failed with a nonzero exit code
+
+
+
+Build failed    8/1/25, 2:19 PM    0.2 seconds

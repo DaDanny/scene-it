@@ -7,17 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E9123463D486CEB800E47008 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91234570486CEB800E47002 /* main.swift */; };
-		E9123464E486CEB800E47009 /* SceneItCameraExtensionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91234580486CEB800E47003 /* SceneItCameraExtensionProvider.swift */; };
+		C904F8A12E3D3C7E005CA358 /* sceneitcameraextension.systemextension in CopyFiles */ = {isa = PBXBuildFile; fileRef = C904F8A02E3D3C7E005CA358 /* sceneitcameraextension.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C904F8A82E3D3C7E005CA358 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904F8A72E3D3C7E005CA358 /* main.swift */; };
+		C904F8AA2E3D3C7E005CA358 /* sceneitcameraextensionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904F8A92E3D3C7E005CA358 /* sceneitcameraextensionProvider.swift */; };
+		C904F8AC2E3D3C7E005CA358 /* CoreMediaIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904F8AB2E3D3C7E005CA358 /* CoreMediaIO.framework */; };
+		C904F8AE2E3D3C7E005CA358 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904F8AD2E3D3C7E005CA358 /* Foundation.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C904F8A52E3D3C7E005CA358 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CE8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C904F89F2E3D3C7E005CA358;
+			remoteInfo = sceneitcameraextension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C904F89A2E3D3B7E005CA358 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/SystemExtensions;
+			dstSubfolderSpec = 1;
+			files = (
+				C904F8A12E3D3C7E005CA358 /* sceneitcameraextension.systemextension in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8D1107320486CEB800E47009 /* SceneIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E91234560486CEB800E47001 /* SceneItCameraExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = SceneItCameraExtension.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
-		E91234570486CEB800E47002 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		E91234580486CEB800E47003 /* SceneItCameraExtensionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItCameraExtensionProvider.swift; sourceTree = "<group>"; };
-		E91234590486CEB800E47004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9123460A486CEB800E47005 /* SceneItCameraExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SceneItCameraExtension.entitlements; sourceTree = "<group>"; };
+		C904F8A02E3D3C7E005CA358 /* sceneitcameraextension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = sceneitcameraextension.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		C904F8A72E3D3C7E005CA358 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C904F8A92E3D3C7E005CA358 /* sceneitcameraextensionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sceneitcameraextensionProvider.swift; sourceTree = "<group>"; };
+		C904F8AB2E3D3C7E005CA358 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
+		C904F8AD2E3D3C7E005CA358 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C904F8AF2E3D3C7E005CA358 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C904F8B02E3D3C7E005CA358 /* sceneitcameraextension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sceneitcameraextension.entitlements; sourceTree = "<group>"; };
+		C9EACCDF2E3DA53D00568AE7 /* sceneitcameraextensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sceneitcameraextensionDebug.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -42,10 +71,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9123462C486CEB800E47007 /* Frameworks */ = {
+		C904F8A22E3D3C7E005CA358 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C904F8AC2E3D3C7E005CA358 /* CoreMediaIO.framework in Frameworks */,
+				C904F8AE2E3D3C7E005CA358 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47009 /* SceneIt.app */,
-				E91234560486CEB800E47001 /* SceneItCameraExtension.systemextension */,
+				C904F8A02E3D3C7E005CA358 /* sceneitcameraextension.systemextension */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,7 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				C97154572E3D031C00BFA128 /* SceneIt */,
-				E9123461B486CEB800E47006 /* SceneItCameraExtension */,
+				C904F8A62E3D3C7E005CA358 /* sceneitcameraextension */,
+				C904F8B12E3D3C7E005CA358 /* Frameworks */,
 				29B97316FDCFA39411CA2CEC /* Products */,
 			);
 			name = Project;
@@ -78,15 +110,25 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E9123461B486CEB800E47006 /* SceneItCameraExtension */ = {
+		C904F8A62E3D3C7E005CA358 /* sceneitcameraextension */ = {
 			isa = PBXGroup;
 			children = (
-				E91234570486CEB800E47002 /* main.swift */,
-				E91234580486CEB800E47003 /* SceneItCameraExtensionProvider.swift */,
-				E91234590486CEB800E47004 /* Info.plist */,
-				E9123460A486CEB800E47005 /* SceneItCameraExtension.entitlements */,
+				C9EACCDF2E3DA53D00568AE7 /* sceneitcameraextensionDebug.entitlements */,
+				C904F8A72E3D3C7E005CA358 /* main.swift */,
+				C904F8A92E3D3C7E005CA358 /* sceneitcameraextensionProvider.swift */,
+				C904F8AF2E3D3C7E005CA358 /* Info.plist */,
+				C904F8B02E3D3C7E005CA358 /* sceneitcameraextension.entitlements */,
 			);
-			path = SceneItCameraExtension;
+			path = sceneitcameraextension;
+			sourceTree = "<group>";
+		};
+		C904F8B12E3D3C7E005CA358 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C904F8AB2E3D3C7E005CA358 /* CoreMediaIO.framework */,
+				C904F8AD2E3D3C7E005CA358 /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,10 +141,12 @@
 				8D1107290486CEB800E47083 /* Sources */,
 				8D11072A0486CEB800E47084 /* Frameworks */,
 				8D11072C0486CEB800E47085 /* Resources */,
+				C904F89A2E3D3B7E005CA358 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C904F8A42E3D3C7E005CA358 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				C97154572E3D031C00BFA128 /* SceneIt */,
@@ -112,20 +156,20 @@
 			productReference = 8D1107320486CEB800E47009 /* SceneIt.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E9123466G486CEB800E4700B /* SceneItCameraExtension */ = {
+		C904F89F2E3D3C7E005CA358 /* sceneitcameraextension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E9123467H486CEB800E4700C /* Build configuration list for PBXNativeTarget "SceneItCameraExtension" */;
+			buildConfigurationList = C904F8B22E3D3C7E005CA358 /* Build configuration list for PBXNativeTarget "sceneitcameraextension" */;
 			buildPhases = (
-				E9123465F486CEB800E4700A /* Sources */,
-				E9123462C486CEB800E47007 /* Frameworks */,
+				C904F8A32E3D3C7E005CA358 /* Sources */,
+				C904F8A22E3D3C7E005CA358 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = SceneItCameraExtension;
-			productName = SceneItCameraExtension;
-			productReference = E91234560486CEB800E47001 /* SceneItCameraExtension.systemextension */;
+			name = sceneitcameraextension;
+			productName = sceneitcameraextension;
+			productReference = C904F8A02E3D3C7E005CA358 /* sceneitcameraextension.systemextension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 /* End PBXNativeTarget section */
@@ -141,6 +185,11 @@
 				TargetAttributes = {
 					8D1107260486CEB800E47080 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
+					};
+					C904F89F2E3D3C7E005CA358 = {
+						CreatedOnToolsVersion = 16.0;
+						DevelopmentTeam = 378NGS49HA;
 						LastSwiftMigration = 1600;
 					};
 				};
@@ -159,7 +208,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47080 /* SceneIt */,
-				E9123466G486CEB800E4700B /* SceneItCameraExtension */,
+				C904F89F2E3D3C7E005CA358 /* sceneitcameraextension */,
 			);
 		};
 /* End PBXProject section */
@@ -182,16 +231,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9123465F486CEB800E4700A /* Sources */ = {
+		C904F8A32E3D3C7E005CA358 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9123463D486CEB800E47008 /* main.swift in Sources */,
-				E9123464E486CEB800E47009 /* SceneItCameraExtensionProvider.swift in Sources */,
+				C904F8A82E3D3C7E005CA358 /* main.swift in Sources */,
+				C904F8AA2E3D3C7E005CA358 /* sceneitcameraextensionProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C904F8A42E3D3C7E005CA358 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C904F89F2E3D3C7E005CA358 /* sceneitcameraextension */;
+			targetProxy = C904F8A52E3D3C7E005CA358 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C01FCF4B08A954540054247B /* Debug */ = {
@@ -216,6 +273,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Ritually needs access to your camera to provide virtual camera functionality with overlays for video conferencing apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Ritually may need access to your microphone for virtual camera functionality.";
+				INFOPLIST_KEY_NSSystemExtensionUsageDescription = "Ritually needs to ";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -253,6 +311,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Ritually needs access to your camera to provide virtual camera functionality with overlays for video conferencing apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024. All rights reserved.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Ritually may need access to your microphone for virtual camera functionality.";
+				INFOPLIST_KEY_NSSystemExtensionUsageDescription = "Ritually needs to ";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -386,10 +445,10 @@
 			};
 			name = Release;
 		};
-		E9123468I486CEB800E4700D /* Debug */ = {
+		C904F8B32E3D3C7E005CA358 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = SceneItCameraExtension/SceneItCameraExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = sceneitcameraextension/sceneitcameraextensionDebug.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -397,15 +456,15 @@
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 378NGS49HA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SceneItCameraExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "SceneIt Camera Extension";
+				INFOPLIST_FILE = sceneitcameraextension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = sceneitcameraextension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 dannyfrancken. All rights reserved.";
+				INFOPLIST_KEY_NSSystemExtensionUsageDescription = "SceneIt needs to install a system extension to provide virtual camera functionality.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.sceneit.cameraextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -417,10 +476,10 @@
 			};
 			name = Debug;
 		};
-		E9123469J486CEB800E4700E /* Release */ = {
+		C904F8B42E3D3C7E005CA358 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = SceneItCameraExtension/SceneItCameraExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = sceneitcameraextension/sceneitcameraextension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -428,20 +487,20 @@
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 378NGS49HA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SceneItCameraExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "SceneIt Camera Extension";
+				INFOPLIST_FILE = sceneitcameraextension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = sceneitcameraextension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 dannyfrancken. All rights reserved.";
+				INFOPLIST_KEY_NSSystemExtensionUsageDescription = "SceneIt needs to install a system extension to provide virtual camera functionality.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dannyfrancken.sceneit.cameraextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "SceneIt Camera Extension Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -469,11 +528,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E9123467H486CEB800E4700C /* Build configuration list for PBXNativeTarget "SceneItCameraExtension" */ = {
+		C904F8B22E3D3C7E005CA358 /* Build configuration list for PBXNativeTarget "sceneitcameraextension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E9123468I486CEB800E4700D /* Debug */,
-				E9123469J486CEB800E4700E /* Release */,
+				C904F8B32E3D3C7E005CA358 /* Debug */,
+				C904F8B42E3D3C7E005CA358 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

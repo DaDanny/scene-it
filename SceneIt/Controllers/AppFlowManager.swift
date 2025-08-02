@@ -114,6 +114,9 @@ class AppFlowManager: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             NSApp.setActivationPolicy(.accessory)
             print("🔄 Switched to menu bar mode")
+            
+            // Show a brief notification to help users find the app
+            self.showMenuBarNotification()
         }
         
         print("✅ AppFlowManager: Main app setup complete!")
@@ -128,6 +131,20 @@ class AppFlowManager: ObservableObject {
                     print("❌ Camera permission denied")
                 }
             }
+        }
+    }
+    
+    private func showMenuBarNotification() {
+        let notification = NSUserNotification()
+        notification.title = "SceneIt is Ready"
+        notification.informativeText = "Look for the SceneIt icon in your menu bar (top-right)"
+        notification.soundName = NSUserNotificationDefaultSoundName
+        
+        NSUserNotificationCenter.default.deliver(notification)
+        
+        // Auto-remove after 3 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            NSUserNotificationCenter.default.removeDeliveredNotification(notification)
         }
     }
     
